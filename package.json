@@ -1,0 +1,70 @@
+{
+  "name": "solar-nets",
+  "version": "0.1.11",
+  "description": "Analyze and monitoring solar power via Petri nets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server -d --progress --open --colors --config ./build/dev.config.js",
+    "deploy": "npm run clear && webpack -p --progress --display-error-details --config ./build/prod.config.js",
+    "server": "nodemon ./server/index.js",
+    "server-prod": "node ./server/index.js",
+    "lint": "eslint ./src ./server",
+    "clear": "rimraf ./public/index.js ./public/styles.css ./public/img ./public/fonts",
+    "migrate": "knex migrate:latest --knexfile server/src/knexfile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gios/solar-nets.git"
+  },
+  "author": "Gios",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gios/solar-nets/issues"
+  },
+  "homepage": "https://github.com/gios/solar-nets#readme",
+  "dependencies": {
+    "bootstrap": "^4.0.0-alpha.2",
+    "font-awesome": "^4.5.0",
+    "isomorphic-fetch": "^2.2.1",
+    "jquery": "^2.2.0",
+    "knex": "^0.10.0",
+    "koa": "^1.2.0",
+    "koa-bodyparser": "^2.0.1",
+    "koa-favicon": "^1.2.1",
+    "koa-helmet": "^1.0.0",
+    "koa-logger": "^1.3.0",
+    "koa-router": "^5.4.0",
+    "koa-send": "^3.1.1",
+    "koa-static": "^2.0.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
+    "sqlite3": "^3.1.1",
+    "tether": "^1.1.1",
+    "tracer": "^0.8.3"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.2",
+    "babel-eslint": "^5.0.0",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^2.2.0",
+    "eslint-plugin-react": "^4.0.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "image-webpack-loader": "^1.6.3",
+    "node-sass": "^3.4.2",
+    "nodemon": "^1.8.1",
+    "resolve-url-loader": "^1.4.3",
+    "rimraf": "^2.5.2",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
+  }
+}

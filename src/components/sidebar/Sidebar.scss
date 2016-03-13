@@ -1,0 +1,143 @@
+.navbar-static {
+  z-index: 99;
+  position: fixed;
+  left: 0;
+  overflow-y: auto;
+  height: 100%;
+  width: 270px;
+  transition: .3s margin linear;
+  background: #23232c;
+  border-radius: 0;
+  padding: 0;
+
+  &.toggle {
+    margin-left: -270px;
+  }
+}
+
+@mixin icon-toggle() {
+  & > i {
+    cursor: pointer;
+    transition: .3s color linear;
+
+    &:hover {
+      color: lighten(#fff, 20%);
+      transition: .3s color linear;
+    }
+  }
+}
+
+.createDiscussion {
+  width: 100%;
+  text-align: center;
+
+  & > a {
+    margin: 1em;
+  }
+}
+
+.toggle-sidebar-button {
+  position: absolute;
+  height: 3.8em;
+  color: #d9d9d9;
+  font-size: 20px;
+  margin: .3em;
+  @include icon-toggle();
+}
+
+.toggle-sidebar-button-content {
+  position: absolute;
+  width: 30px;
+  height: 100%;
+  color: #23232c;
+  left: 0;
+  padding-top: .3em;
+  background-color: rgba(217, 217, 217, .5);
+  @include icon-toggle();
+}
+
+.sidebar-list-static {
+  &.nested {
+    background-color: lighten(#23232c, 5%);
+  }
+
+  & > li {
+    border-bottom: 1px solid #484848;
+  }
+}
+
+.navbar-info {
+  .navbar-logo {
+    color: darken(#5cb85c, 10%);
+    font-size: 20px;
+    margin: 0 0 10px;
+    text-align: center;
+    font-weight: 700;
+  }
+
+  .navbal-logout {
+    position: absolute;
+    margin: .3em;
+    color: #d9d9d9;
+    font-size: 20px;
+
+    & > i {
+      cursor: pointer;
+    }
+  }
+
+  .navbar-user-info {
+    text-align: center;
+    color: #fff;
+    margin: .5em;
+  }
+}
+
+.sidebar-list-item {
+  margin-left: .5em;
+}
+
+.sidebar-link {
+  color: #d9d9d9;
+  padding: .7em;
+  width: 100%;
+
+  &:hover {
+    outline: none;
+    color: #fff;
+  }
+
+  &:hover:not(.deactivate):not(.active) {
+    background: #1c1c25;
+    transition: 0.2s all ease-in-out;
+  }
+
+  &:focus {
+    color: #d9d9d9;
+  }
+
+  &.nested {
+    padding: .7em 1.6em;
+  }
+
+  &.deactivate {
+    padding: 1.40em;
+    width: 100%;
+  }
+
+  &.active {
+    background-color: darken(#5cb85c, 20%);
+  }
+}
+
+.navbar-footer {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  margin-top: 2em;
+
+  & > p {
+    color: #fff;
+    margin: .5em;
+  }
+}

@@ -11,7 +11,7 @@ const favicon = require('koa-favicon')
 const send = require('koa-send')
 const tracer = require('tracer').colorConsole()
 
-router.get('*', function *(next) {
+app.use(function *(next) {
   yield send(this, path.resolve(__dirname, '/../public/', 'index.html'))
   yield next
 })

@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import SolarNet from './SolarNet'
 
-class Dash extends Component {
+class About extends Component {
 
   render() {
     return (
       <div className='col-md-12'>
-        <SolarNet/>
+        Pavlo Blazhchuk
       </div>
     )
   }
 }
 
-export default Dash
+export default About

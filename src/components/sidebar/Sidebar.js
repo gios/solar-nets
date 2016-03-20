@@ -95,7 +95,7 @@ class Sidebar extends Component {
           </div>
           <ul className='nav sidebar-list-static'>
             <li className='nav-item'>
-              <Link to='/' className={this.routeSelector('/') }>
+              <Link to='/' className={this.routeSelector('/')}>
                 <i className='fa fa-dashcube'></i>
                 <span className='sidebar-list-item'>Dash</span>
               </Link>
@@ -116,10 +116,10 @@ class Sidebar extends Component {
               <a className='nav-link sidebar-link deactivate'></a>
             </li>
             <li className='nav-item'>
-              <a className='nav-link sidebar-link' href='javascript:void(0)'>
+              <Link to='/about' className={this.routeSelector('/about')}>
                 <i className='fa fa-rss'></i>
                 <span className='sidebar-list-item'>About</span>
-              </a>
+              </Link>
             </li>
           </ul>
           <div className='navbar-footer'>

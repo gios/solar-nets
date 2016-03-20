@@ -4,7 +4,7 @@ import Sidebar from './sidebar/Sidebar'
 class App extends Component {
 
   render() {
-    let currentRoute = this.props.route.path
+    let currentRoute = this.props.location.pathname
     return (
       <div>
         <div>

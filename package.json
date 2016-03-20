@@ -27,6 +27,7 @@
     "bootstrap": "^4.0.0-alpha.2",
     "font-awesome": "^4.5.0",
     "isomorphic-fetch": "^2.2.1",
+    "jointjs": "^0.9.7",
     "jquery": "^2.2.0",
     "knex": "^0.10.0",
     "koa": "^1.2.0",

@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 // Components
 import App from './components/App'
 import Dash from './components/dash/Dash'
+import About from './components/about/About'
 
 // Styles (SCSS)
 import './index.scss'
@@ -23,7 +24,8 @@ render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={Dash}/>
+      <Route path='about' component={About}/>
     </Route>
   </Router>,
   document.getElementById('render')
-);
+)

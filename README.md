@@ -1,2 +1,2 @@
 # Solar Nets
-Analyze and monitoring solar power via Petri nets.
+Analyze and monitoring solar power via Petri Nets.

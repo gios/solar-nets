@@ -5,7 +5,7 @@ class About extends Component {
   render() {
     return (
       <div className='col-md-12'>
-        Pavlo Blazhchuk
+        Pavlo Blazhchuk CS-41
       </div>
     )
   }

@@ -36,6 +36,8 @@ class SolarNet extends Component {
       height: 750,
       gridSize: 10,
       perpendicularLinks: true,
+      interactive: false,
+      interaction: false,
       model: graph
     })
 

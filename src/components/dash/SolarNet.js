@@ -74,7 +74,7 @@ class SolarNet extends Component {
       link(transitionT5, pinnacleConsumedSolarEnergy),
       link(pinnacleSolarStation, transitionT1),
       link(transitionT1, pinnacleSolarStation),
-      link(transitionT1, pinnacleSolarEnergy),
+      link(transitionT1, pinnacleSolarEnergy, {label: '1200'}),
       link(pinnacleElectroStation, transitionT2),
       link(transitionT2, pinnacleElectroStation),
       link(transitionT2, pinnacleElectroEnergy, {label: '200'}),

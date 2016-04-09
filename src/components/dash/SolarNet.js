@@ -14,7 +14,7 @@ import {
   pinnacleP5,
   pinnacleSellingSolarEnergy
 } from './pinnacles'
-import link from './linkConnections'
+import { link, getLinkValue } from './linkConnections'
 import {
   setBaseTransition,
   getBaseTransition,
@@ -107,33 +107,31 @@ class SolarNet extends Component {
           return graph.getCell(link.get('target').id)
       })
 
-      console.log(placesBefore, placesAfter)
-
       let isFirable = true
-      _.each(placesBefore, (p) => {
-        if(p.get('tokens') === 0) {
+      _.each(placesBefore, (model) => {
+        if(model.get('tokens') === 0) {
           isFirable = false
         }
       })
 
       if (isFirable) {
-        _.each(placesBefore, (p) => {
+        _.each(placesBefore, (pinnacleModel) => {
           _.defer(() => {
-            p.set('tokens', p.get('tokens') - 1)
+            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - 1)
           })
 
-          let link = _.find(inbound, (l) => {
-            return l.get('source').id === p.id
+          let linked = _.find(inbound, (link) => {
+            return link.get('source').id === pinnacleModel.id
           })
-          paper.findViewByModel(link).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
+          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
         })
 
-        _.each(placesAfter, (p) => {
-          let link = _.find(outbound, (l) => {
-            return l.get('target').id === p.id
+        _.each(placesAfter, (pinnacleModel) => {
+          let linked = _.find(outbound, (link) => {
+            return link.get('target').id === pinnacleModel.id
           })
-          paper.findViewByModel(link).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
-            p.set('tokens', p.get('tokens') + 10)
+          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
+            pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
           })
         })
       }
@@ -141,25 +139,31 @@ class SolarNet extends Component {
 
     function simulate() {
       let transitions = [
+        transitionT3,
+        transitionT5,
         transitionT1,
-        transitionT2
+        transitionT2,
+        transitionT4,
+        transitionT7,
+        transitionT8,
+        transitionT6
       ]
 
-      setBaseTransition(transitionT1, getBaseTransition(transitionT1) + 1)
-      setBaseTransition(transitionT2, getBaseTransition(transitionT2) + 1)
-      setBaseTransition(transitionT3, getBaseTransition(transitionT3) + 1)
-      setBaseTransition(transitionT6, getBaseTransition(transitionT6) + 1)
+      // setBaseTransition(transitionT1, getBaseTransition(transitionT1) + 1)
+      // setBaseTransition(transitionT2, getBaseTransition(transitionT2) + 1)
+      // setBaseTransition(transitionT3, getBaseTransition(transitionT3) + 1)
+      // setBaseTransition(transitionT6, getBaseTransition(transitionT6) + 1)
 
-      setTimeout(() => {
-        setBaseTransition(transitionT7, getBaseTransition(transitionT7) + 1)
-        setBaseTransition(transitionT8, getBaseTransition(transitionT8) + 1)
-      }, 10000)
+      // setTimeout(() => {
+      //   setBaseTransition(transitionT7, getBaseTransition(transitionT7) + 1)
+      //   setBaseTransition(transitionT8, getBaseTransition(transitionT8) + 1)
+      // }, 10000)
 
       return setInterval(() => {
         _.each(transitions, (t) => {
           fireTransition(t, 1)
         })
-      }, 10000)
+      }, 5000)
     }
 
     this.simulationId = simulate()

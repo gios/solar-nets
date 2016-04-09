@@ -2,14 +2,14 @@ import joint from 'jointjs'
 
 // Link function for binding pinnacles and transitions
 
-let pn = joint.shapes.pn
+const pn = joint.shapes.pn
 
-let defaultLinkOptions = {
+const defaultLinkOptions = {
   label: '',
   dotted: false
 }
 
-export default function link(connectFirst, connectSecond, options = defaultLinkOptions) {
+export function link(connectFirst, connectSecond, options = defaultLinkOptions) {
   options = Object.assign({}, defaultLinkOptions, options)
   let { label, dotted } = options
   let configLinkOptions = {
@@ -41,4 +41,9 @@ export default function link(connectFirst, connectSecond, options = defaultLinkO
   }
 
   return new pn.Link(configLinkOptions)
+}
+
+export function getLinkValue(link) {
+  let linkValue = link.get('labels')[0].attrs.text.text
+  return parseInt((linkValue) ? linkValue : 1)
 }

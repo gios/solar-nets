@@ -1,6 +1,6 @@
 import joint from 'jointjs'
 
-let pn = joint.shapes.pn
+const pn = joint.shapes.pn
 
 // Rendring transitions
 

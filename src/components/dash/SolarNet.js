@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import joint from 'jointjs'
+import joint, { V } from 'jointjs'
 import {
   pinnacleConsumer,
   pinnacleNeeds,
@@ -16,6 +16,8 @@ import {
 } from './pinnacles'
 import link from './linkConnections'
 import {
+  setBaseTransition,
+  getBaseTransition,
   transitionT1,
   transitionT2,
   transitionT3,
@@ -92,6 +94,83 @@ class SolarNet extends Component {
       link(transitionT6, pinnacleSellingSolarEnergy),
       link(transitionT6, pinnacleP5)
     ])
+
+    function fireTransition(t, sec) {
+      let inbound = graph.getConnectedLinks(t, { inbound: true })
+      let outbound = graph.getConnectedLinks(t, { outbound: true })
+
+      let placesBefore = _.map(inbound, (link) => {
+          return graph.getCell(link.get('source').id)
+      })
+
+      let placesAfter = _.map(outbound, (link) => {
+          return graph.getCell(link.get('target').id)
+      })
+
+      console.log(placesBefore, placesAfter)
+
+      let isFirable = true
+      _.each(placesBefore, (p) => {
+        if(p.get('tokens') === 0) {
+          isFirable = false
+        }
+      })
+
+      if (isFirable) {
+        _.each(placesBefore, (p) => {
+          _.defer(() => {
+            p.set('tokens', p.get('tokens') - 1)
+          })
+
+          let link = _.find(inbound, (l) => {
+            return l.get('source').id === p.id
+          })
+          paper.findViewByModel(link).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
+        })
+
+        _.each(placesAfter, (p) => {
+          let link = _.find(outbound, (l) => {
+            return l.get('target').id === p.id
+          })
+          paper.findViewByModel(link).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
+            p.set('tokens', p.get('tokens') + 10)
+          })
+        })
+      }
+    }
+
+    function simulate() {
+      let transitions = [
+        transitionT1,
+        transitionT2
+      ]
+
+      setBaseTransition(transitionT1, getBaseTransition(transitionT1) + 1)
+      setBaseTransition(transitionT2, getBaseTransition(transitionT2) + 1)
+      setBaseTransition(transitionT3, getBaseTransition(transitionT3) + 1)
+      setBaseTransition(transitionT6, getBaseTransition(transitionT6) + 1)
+
+      setTimeout(() => {
+        setBaseTransition(transitionT7, getBaseTransition(transitionT7) + 1)
+        setBaseTransition(transitionT8, getBaseTransition(transitionT8) + 1)
+      }, 10000)
+
+      return setInterval(() => {
+        _.each(transitions, (t) => {
+          fireTransition(t, 1)
+        })
+      }, 10000)
+    }
+
+    this.simulationId = simulate()
+  }
+
+  stopSimulation(simulationId) {
+    clearInterval(simulationId)
+  }
+
+  componentWillUnmount() {
+    this.stopSimulation(this.simulationId)
   }
 
   render() {

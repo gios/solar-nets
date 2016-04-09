@@ -4,6 +4,14 @@ let pn = joint.shapes.pn
 
 // Rendring transitions
 
+export function setBaseTransition(transitionModel, base) {
+  transitionModel.attr('.label-base/text', `b = ${base}`)
+}
+
+export function getBaseTransition(transitionModel) {
+  return +transitionModel.attr('.label-base/text').split(' ')[2]
+}
+
 export let transitionT3 = new pn.Transition({
   markup: '<g class="rotatable"><g class="scalable"><rect class="root"/></g></g>' +
   '<text class="label"/><text class="label-time"/><text class="label-base"/>',

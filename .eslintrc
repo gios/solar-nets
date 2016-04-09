@@ -15,7 +15,8 @@
     "es6": true
   },
   "globals": {
-    "$": false
+    "$": false,
+    "_": false
   },
   "plugins": [
     "react"

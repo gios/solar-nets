@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import joint, { V } from 'jointjs'
+import joint from 'jointjs'
 import {
   pinnacleConsumer,
   pinnacleNeeds,

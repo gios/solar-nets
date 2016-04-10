@@ -29,6 +29,13 @@ import fireTransition from './transitionAnimation'
 
 class SolarNet extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      simulate: false
+    }
+  }
+
   componentDidMount() {
     this.graph = new joint.dia.Graph()
     this.paper = new joint.dia.Paper({
@@ -96,6 +103,10 @@ class SolarNet extends Component {
   }
 
   startTransition() {
+    this.setState({
+      simulate: true
+    })
+
     let transitions = [
       transitionT3,
       transitionT5,
@@ -120,7 +131,10 @@ class SolarNet extends Component {
     return (
       <div className='col-md-12'>
         <div id='solar-petri-net'></div>
-        <button onClick={this.startTransition.bind(this)}>Start</button>
+        <button onClick={this.startTransition.bind(this)}
+                type='button'
+                className='btn btn-primary'
+                disabled={this.state.simulate}>Start Simulation</button>
       </div>
     )
   }

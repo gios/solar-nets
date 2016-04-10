@@ -16,7 +16,6 @@ import {
 } from './pinnacles'
 import { link } from './linkConnections'
 import {
-  getTimeTransition,
   transitionT1,
   transitionT2,
   transitionT3,
@@ -31,8 +30,8 @@ import fireTransition from './transitionAnimation'
 class SolarNet extends Component {
 
   componentDidMount() {
-    let graph = new joint.dia.Graph()
-    let paper = new joint.dia.Paper({
+    this.graph = new joint.dia.Graph()
+    this.paper = new joint.dia.Paper({
       el: $('#solar-petri-net'),
       width: 1200,
       height: 750,
@@ -40,10 +39,10 @@ class SolarNet extends Component {
       perpendicularLinks: true,
       interactive: false,
       interaction: false,
-      model: graph
+      model: this.graph
     })
 
-    graph.addCell([
+    this.graph.addCell([
       // Pinnacles
       pinnacleConsumer,
       pinnacleNeeds,
@@ -69,7 +68,7 @@ class SolarNet extends Component {
       transitionT6
     ])
 
-    graph.addCell([
+    this.graph.addCell([
       link(pinnacleConsumer, transitionT3),
       link(transitionT3, pinnacleConsumer),
       link(transitionT3, pinnacleNeeds, {label: '100'}),
@@ -94,43 +93,34 @@ class SolarNet extends Component {
       link(transitionT6, pinnacleSellingSolarEnergy),
       link(transitionT6, pinnacleP5)
     ])
+  }
 
-    function simulate() {
-      let transitions = [
-        transitionT3,
-        transitionT5,
-        transitionT1,
-        transitionT2,
-        transitionT4,
-        transitionT7,
-        transitionT8,
-        transitionT6
-      ]
+  startTransition() {
+    let transitions = [
+      transitionT3,
+      transitionT5,
+      transitionT1,
+      transitionT2,
+      transitionT4,
+      transitionT7,
+      transitionT8,
+      transitionT6
+    ]
 
-      console.log(getTimeTransition(transitionT1))
-
-      return setInterval(() => {
-        _.each(transitions, (transition) => {
-          fireTransition(graph, paper, transition, 1)
-        })
-      }, 5000)
+    function simulate(graph, paper, transitions) {
+      fireTransition(graph, paper, transitions, () => {
+        simulate(graph, paper, transitions)
+      })
     }
 
-    this.simulationId = simulate()
-  }
-
-  stopSimulation(simulationId) {
-    clearInterval(simulationId)
-  }
-
-  componentWillUnmount() {
-    this.stopSimulation(this.simulationId)
+    simulate(this.graph, this.paper, transitions)
   }
 
   render() {
     return (
       <div className='col-md-12'>
         <div id='solar-petri-net'></div>
+        <button onClick={this.startTransition.bind(this)}>Start</button>
       </div>
     )
   }

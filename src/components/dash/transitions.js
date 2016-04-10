@@ -44,7 +44,7 @@ export let transitionT3 = new pn.Transition({
       'ref-y': 70,
       ref: 'rect',
       'font-size': 12,
-      text: 'b = 1',
+      text: 'b = 0',
       fill: '#fe854f',
       'font-weight': 'bold'
     },
@@ -75,7 +75,7 @@ export let transitionT1 = transitionT3.clone().attr({
     text: 't = 30'
   },
   '.label-base': {
-    text: 'b = 1'
+    text: 'b = 0'
   }
 }).position(350, 150)
 
@@ -87,7 +87,7 @@ export let transitionT2 = transitionT3.clone().attr({
     text: 't = 30'
   },
   '.label-base': {
-    text: 'b = 1'
+    text: 'b = 0'
   }
 }).position(300, 250)
 
@@ -135,6 +135,6 @@ export let transitionT6 = transitionT3.clone().attr({
     text: 't = 30'
   },
   '.label-base': {
-    text: 'b = 1'
+    text: 'b = 0'
   }
 }).position(180, 450)

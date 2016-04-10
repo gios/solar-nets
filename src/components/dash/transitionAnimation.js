@@ -38,18 +38,20 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
   })
 
   if (isFirable) {
-    // setBaseTransition(transition, getBaseTransition(transition) + (inbound.length) ? 1 : 0)
     _.each(placesBefore, (pinnacleModel) => {
       let linked = _.find(inbound, (link) => {
         return link.get('source').id === pinnacleModel.id
       })
 
       if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
-        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
+        if(pinnacleModel.get('tokens') >= getLinkValue(linked)) {
+          setBaseTransition(transition, getBaseTransition(transition) + (inbound.length) ? 1 : 0)
+          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
 
-        _.defer(() => {
-          pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
-        })
+          _.defer(() => {
+            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
+          })
+        }
       }
     })
 
@@ -57,10 +59,16 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       let linked = _.find(outbound, (link) => {
         return link.get('target').id === pinnacleModel.id
       })
-      paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
-        pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
+
+      if(getBaseTransition(transition) > 0) {
+        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
+          pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
+          setBaseTransition(transition, (getBaseTransition(transition) === 0) ? 0 : getBaseTransition(transition) - 1)
+          callback(transition.attr('.label/text'))
+        })
+      } else {
         callback(transition.attr('.label/text'))
-      })
+      }
     })
   }
 }

@@ -2,6 +2,8 @@ import { V } from 'jointjs'
 import { getLinkValue } from './linkConnections'
 import { setBaseTransition, getBaseTransition, getTimeTransition } from './transitions'
 
+const dottedLink = '2,5'
+
 export default function fireTransition(graph, paper, transitions, callback) {
   let finishDelay = []
   let firableTransition = getFirableTransitionsCount(graph, paper, transitions)
@@ -41,11 +43,14 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       let linked = _.find(inbound, (link) => {
         return link.get('source').id === pinnacleModel.id
       })
-      paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
 
-      _.defer(() => {
-        pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
-      })
+      if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
+        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
+
+        _.defer(() => {
+          pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
+        })
+      }
     })
 
     _.each(placesAfter, (pinnacleModel) => {

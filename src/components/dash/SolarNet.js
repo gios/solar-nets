@@ -16,8 +16,7 @@ import {
 } from './pinnacles'
 import { link, getLinkValue } from './linkConnections'
 import {
-  setBaseTransition,
-  getBaseTransition,
+  getTimeTransition,
   transitionT1,
   transitionT2,
   transitionT3,
@@ -95,9 +94,10 @@ class SolarNet extends Component {
       link(transitionT6, pinnacleP5)
     ])
 
-    function fireTransition(t, sec) {
-      let inbound = graph.getConnectedLinks(t, { inbound: true })
-      let outbound = graph.getConnectedLinks(t, { outbound: true })
+    function fireTransition(transition, sec) {
+      // console.log(getTimeTransition(transition))
+      let inbound = graph.getConnectedLinks(transition, { inbound: true })
+      let outbound = graph.getConnectedLinks(transition, { outbound: true })
 
       let placesBefore = _.map(inbound, (link) => {
           return graph.getCell(link.get('source').id)
@@ -116,14 +116,14 @@ class SolarNet extends Component {
 
       if (isFirable) {
         _.each(placesBefore, (pinnacleModel) => {
-          _.defer(() => {
-            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - 1)
-          })
-
           let linked = _.find(inbound, (link) => {
             return link.get('source').id === pinnacleModel.id
           })
           paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
+
+          _.defer(() => {
+            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
+          })
         })
 
         _.each(placesAfter, (pinnacleModel) => {
@@ -148,16 +148,6 @@ class SolarNet extends Component {
         transitionT8,
         transitionT6
       ]
-
-      // setBaseTransition(transitionT1, getBaseTransition(transitionT1) + 1)
-      // setBaseTransition(transitionT2, getBaseTransition(transitionT2) + 1)
-      // setBaseTransition(transitionT3, getBaseTransition(transitionT3) + 1)
-      // setBaseTransition(transitionT6, getBaseTransition(transitionT6) + 1)
-
-      // setTimeout(() => {
-      //   setBaseTransition(transitionT7, getBaseTransition(transitionT7) + 1)
-      //   setBaseTransition(transitionT8, getBaseTransition(transitionT8) + 1)
-      // }, 10000)
 
       return setInterval(() => {
         _.each(transitions, (t) => {

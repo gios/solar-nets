@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import joint, { V } from 'jointjs'
+import joint from 'jointjs'
 import {
   pinnacleConsumer,
   pinnacleNeeds,
@@ -14,7 +14,7 @@ import {
   pinnacleP5,
   pinnacleSellingSolarEnergy
 } from './pinnacles'
-import { link, getLinkValue } from './linkConnections'
+import { link } from './linkConnections'
 import {
   getTimeTransition,
   transitionT1,
@@ -26,6 +26,7 @@ import {
   transitionT7,
   transitionT8
 } from './transitions'
+import fireTransition from './transitionAnimation'
 
 class SolarNet extends Component {
 
@@ -94,49 +95,6 @@ class SolarNet extends Component {
       link(transitionT6, pinnacleP5)
     ])
 
-    function fireTransition(transition, sec) {
-      // console.log(getTimeTransition(transition))
-      let inbound = graph.getConnectedLinks(transition, { inbound: true })
-      let outbound = graph.getConnectedLinks(transition, { outbound: true })
-
-      let placesBefore = _.map(inbound, (link) => {
-          return graph.getCell(link.get('source').id)
-      })
-
-      let placesAfter = _.map(outbound, (link) => {
-          return graph.getCell(link.get('target').id)
-      })
-
-      let isFirable = true
-      _.each(placesBefore, (model) => {
-        if(model.get('tokens') === 0) {
-          isFirable = false
-        }
-      })
-
-      if (isFirable) {
-        _.each(placesBefore, (pinnacleModel) => {
-          let linked = _.find(inbound, (link) => {
-            return link.get('source').id === pinnacleModel.id
-          })
-          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
-
-          _.defer(() => {
-            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
-          })
-        })
-
-        _.each(placesAfter, (pinnacleModel) => {
-          let linked = _.find(outbound, (link) => {
-            return link.get('target').id === pinnacleModel.id
-          })
-          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
-            pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
-          })
-        })
-      }
-    }
-
     function simulate() {
       let transitions = [
         transitionT3,
@@ -149,9 +107,11 @@ class SolarNet extends Component {
         transitionT6
       ]
 
+      console.log(getTimeTransition(transitionT1))
+
       return setInterval(() => {
-        _.each(transitions, (t) => {
-          fireTransition(t, 1)
+        _.each(transitions, (transition) => {
+          fireTransition(graph, paper, transition, 1)
         })
       }, 5000)
     }

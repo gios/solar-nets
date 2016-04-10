@@ -49,7 +49,19 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
           paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
 
           _.defer(() => {
-            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
+            let minusValue = (getLinkValue(linked) > 100) ? getLinkValue(linked) : 1
+
+            // This code shoud be refactored
+            switch(transition.attr('.label/text')) {
+              case 'T5':
+              case 'T4':
+                minusValue = 0
+                break;
+              default:
+                getLinkValue(linked)
+                break;
+            }
+            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - minusValue)
           })
         }
       }
@@ -70,6 +82,30 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
         callback(transition.attr('.label/text'))
       }
     })
+
+    // This code shoud be refactored
+    placesBefore.reduce((previous, current) => {
+      let linked = _.find(inbound, (link) => {
+        return link.get('source').id === current.id
+      })
+      // console.log(transition.attr('.label/text'),
+      //             previous.attr('.label/text'),
+      //             current.attr('.label/text'),
+      //             previous.get('tokens'),
+      //             current.get('tokens'),
+      //             linked.attr('.connection/stroke-dasharray'))
+      if(previous.get('tokens') < current.get('tokens') && linked.attr('.connection/stroke-dasharray') !== dottedLink) {
+        // console.log(previous.attr('.label/text'))
+        let newLinkValue = previous.get('tokens')
+        previous.set('tokens', 1)
+        current.set('tokens', current.get('tokens') - previous.get('tokens'))
+
+        _.each(placesAfter, (pinnacleModel) => {
+          pinnacleModel.set('tokens', pinnacleModel.get('tokens') + newLinkValue)
+        })
+      }
+    })
+
   }
 }
 

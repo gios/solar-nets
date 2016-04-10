@@ -102,6 +102,11 @@ class SolarNet extends Component {
     ])
   }
 
+  componentWillUnmount() {
+    this.graph.clear()
+    this.paper.remove()
+  }
+
   startTransition() {
     this.setState({
       simulate: true

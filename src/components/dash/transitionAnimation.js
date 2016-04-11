@@ -67,6 +67,17 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
     // Check connected condition state
 
+    let successTransition = _.every(placesBefore, (pinnacleModel) => {
+      return pinnacleModel.get('tokens') > 0
+    })
+
+    if(successTransition) {
+      _.each(placesBefore, (pinnacleModel) => {
+        pinnacleModel.set('tokens', pinnacleModel.get('tokens') - Math.min.apply(placesBefore.get('tokens')))
+        // Math.min.apply(placesBefore.get('tokens')) need to find min value of token values
+      })
+    }
+
     _.each(placesAfter, (pinnacleModel) => {
       let linked = _.find(outbound, (link) => {
         return link.get('target').id === pinnacleModel.id

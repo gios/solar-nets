@@ -65,23 +65,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       }
     })
 
-    // switch(transition.attr('.label/text')) {
-    //   case 'T5':
-    //     let [needs, solarEnergy] = placesBefore
-    //     if(solarEnergy.get('tokens') >= needs.get('tokens')) {
-    //       solarEnergy.set('tokens', solarEnergy.get('tokens') - needs.get('tokens'))
-    //       needs.set('tokens', 0)
-    //     } else {
-    //       solarEnergy.set('tokens', solarEnergy.get('tokens') - 0)
-    //     }
-    //     break
-    //   case 'T4':
-    //     solarEnergy.set('tokens', solarEnergy.get('tokens') - 0)
-    //     break
-    //   default:
-    //     solarEnergy.set('tokens', solarEnergy.get('tokens') - 0)
-    //     break
-    // }
+    // Check connected condition state
 
     _.each(placesAfter, (pinnacleModel) => {
       let linked = _.find(outbound, (link) => {

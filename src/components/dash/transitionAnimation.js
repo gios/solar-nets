@@ -40,8 +40,8 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
   if (isFirable) {
     _.each(placesBefore, (pinnacleModel) => {
       let linked = _.find(inbound, (link) => {
-        return link.get('source').id === pinnacleModel.id
-      })
+      return link.get('source').id === pinnacleModel.id
+    })
 
       if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
         if(pinnacleModel.get('tokens') >= getLinkValue(linked)) {
@@ -49,23 +49,39 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
           paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
 
           _.defer(() => {
-            let minusValue = (getLinkValue(linked) > 100) ? getLinkValue(linked) : 1
-
-            // This code shoud be refactored
             switch(transition.attr('.label/text')) {
               case 'T5':
+                pinnacleModel.set('tokens', pinnacleModel.get('tokens') - 0)
+                break
               case 'T4':
-                minusValue = 0
-                break;
+                pinnacleModel.set('tokens', pinnacleModel.get('tokens') - 0)
+                break
               default:
-                getLinkValue(linked)
-                break;
+                pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
+                break
             }
-            pinnacleModel.set('tokens', pinnacleModel.get('tokens') - minusValue)
           })
         }
       }
     })
+
+    // switch(transition.attr('.label/text')) {
+    //   case 'T5':
+    //     let [needs, solarEnergy] = placesBefore
+    //     if(solarEnergy.get('tokens') >= needs.get('tokens')) {
+    //       solarEnergy.set('tokens', solarEnergy.get('tokens') - needs.get('tokens'))
+    //       needs.set('tokens', 0)
+    //     } else {
+    //       solarEnergy.set('tokens', solarEnergy.get('tokens') - 0)
+    //     }
+    //     break
+    //   case 'T4':
+    //     solarEnergy.set('tokens', solarEnergy.get('tokens') - 0)
+    //     break
+    //   default:
+    //     solarEnergy.set('tokens', solarEnergy.get('tokens') - 0)
+    //     break
+    // }
 
     _.each(placesAfter, (pinnacleModel) => {
       let linked = _.find(outbound, (link) => {
@@ -74,7 +90,18 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
       if(getBaseTransition(transition) > 0) {
         paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
-          pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
+
+          switch(transition.attr('.label/text')) {
+            case 'T5':
+              pinnacleModel.set('tokens', pinnacleModel.get('tokens') + 0)
+              break
+            case 'T4':
+              pinnacleModel.set('tokens', pinnacleModel.get('tokens') + 0)
+              break
+            default:
+              pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
+              break
+          }
           setBaseTransition(transition, (getBaseTransition(transition) === 0) ? 0 : getBaseTransition(transition) - 1)
           callback(transition.attr('.label/text'))
         })
@@ -82,30 +109,6 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
         callback(transition.attr('.label/text'))
       }
     })
-
-    // This code shoud be refactored
-    placesBefore.reduce((previous, current) => {
-      let linked = _.find(inbound, (link) => {
-        return link.get('source').id === current.id
-      })
-      // console.log(transition.attr('.label/text'),
-      //             previous.attr('.label/text'),
-      //             current.attr('.label/text'),
-      //             previous.get('tokens'),
-      //             current.get('tokens'),
-      //             linked.attr('.connection/stroke-dasharray'))
-      if(previous.get('tokens') < current.get('tokens') && linked.attr('.connection/stroke-dasharray') !== dottedLink) {
-        // console.log(previous.attr('.label/text'))
-        let newLinkValue = previous.get('tokens')
-        previous.set('tokens', 1)
-        current.set('tokens', current.get('tokens') - previous.get('tokens'))
-
-        _.each(placesAfter, (pinnacleModel) => {
-          pinnacleModel.set('tokens', pinnacleModel.get('tokens') + newLinkValue)
-        })
-      }
-    })
-
   }
 }
 

@@ -40,8 +40,8 @@ class SolarNet extends Component {
     this.graph = new joint.dia.Graph()
     this.paper = new joint.dia.Paper({
       el: $('#solar-petri-net'),
-      width: 1200,
-      height: 750,
+      width: 1050,
+      height: 650,
       gridSize: 10,
       perpendicularLinks: true,
       interactive: false,
@@ -134,7 +134,7 @@ class SolarNet extends Component {
 
   render() {
     return (
-      <div className='col-md-12'>
+      <div>
         <div id='solar-petri-net'></div>
         <button onClick={this.startTransition.bind(this)}
                 type='button'

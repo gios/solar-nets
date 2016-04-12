@@ -32,6 +32,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
   let isFirable = true
   _.each(placesBefore, (pinnacleModel) => {
+    console.log(pinnacleModel.attr('.label/text'), pinnacleModel.get('tokens'))
     if(pinnacleModel.get('tokens') === 0) {
       isFirable = false
     }

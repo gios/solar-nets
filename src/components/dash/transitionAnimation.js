@@ -31,10 +31,14 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
   })
 
   let isFirable = true
+  // Error happend when needs more than 2000
   _.each(placesBefore, (pinnacleModel) => {
-    console.log(pinnacleModel.attr('.label/text'), pinnacleModel.get('tokens'))
+    // console.log(pinnacleModel.attr('.label/text'), pinnacleModel.get('tokens'), getFilteredLinkCount(placesBefore, inbound))
     if(pinnacleModel.get('tokens') === 0) {
       isFirable = false
+    } else if(getFilteredLinkCount(placesBefore, inbound) > 1) {
+      // console.log(pinnacleModel.attr('.label/text'), getFilteredLinkCount(placesBefore, inbound))
+      isFirable = true
     }
   })
 
@@ -66,7 +70,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
     if(getFilteredLinkCount(placesBefore, inbound) > 1) {
       if(successTransition) {
-        differenceTokenValue = _.min(_.invoke(placesBefore, 'get', 'tokens')) - 1
+        differenceTokenValue = _.min(_.invoke(placesBefore, 'get', 'tokens'))
         _.each(placesBefore, (pinnacleModel) => {
           pinnacleModel.set('tokens', pinnacleModel.get('tokens') - differenceTokenValue)
         })

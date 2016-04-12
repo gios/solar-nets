@@ -23,11 +23,11 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
   let outbound = graph.getConnectedLinks(transition, { outbound: true })
 
   let placesBefore = _.map(inbound, (link) => {
-      return graph.getCell(link.get('source').id)
+    return graph.getCell(link.get('source').id)
   })
 
   let placesAfter = _.map(outbound, (link) => {
-      return graph.getCell(link.get('target').id)
+    return graph.getCell(link.get('target').id)
   })
 
   let isFirable = true
@@ -96,11 +96,12 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
 function getFirableTransitionsCount(graph, paper, transitions) {
   let firableCount = 0
+
   _.each(transitions, (transition) => {
     let inbound = graph.getConnectedLinks(transition, { inbound: true })
 
     let placesBefore = _.map(inbound, (link) => {
-        return graph.getCell(link.get('source').id)
+      return graph.getCell(link.get('source').id)
     })
 
     let isFirable = true
@@ -119,6 +120,7 @@ function getFirableTransitionsCount(graph, paper, transitions) {
 
 function getFilteredLinkCount(placesBefore, inbound) {
   let linkCount = 0
+
   _.each(placesBefore, (pinnacleModel) => {
     let linked = _.find(inbound, (link) => {
       return link.get('source').id === pinnacleModel.id

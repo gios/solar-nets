@@ -40,8 +40,8 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
   if (isFirable) {
     _.each(placesBefore, (pinnacleModel) => {
       let linked = _.find(inbound, (link) => {
-      return link.get('source').id === pinnacleModel.id
-    })
+        return link.get('source').id === pinnacleModel.id
+      })
 
       if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
         if(pinnacleModel.get('tokens') >= getLinkValue(linked)) {
@@ -49,16 +49,8 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
           paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
 
           _.defer(() => {
-            switch(transition.attr('.label/text')) {
-              case 'T5':
-                pinnacleModel.set('tokens', pinnacleModel.get('tokens') - 0)
-                break
-              case 'T4':
-                pinnacleModel.set('tokens', pinnacleModel.get('tokens') - 0)
-                break
-              default:
-                pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
-                break
+            if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
+              pinnacleModel.set('tokens', pinnacleModel.get('tokens') - getLinkValue(linked))
             }
           })
         }
@@ -67,16 +59,18 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
     // Check connected condition state
 
-    let successTransition = _.every(placesBefore, (pinnacleModel) => {
-      return pinnacleModel.get('tokens') > 0
-    })
+    // let successTransition = _.every(placesBefore, (pinnacleModel) => {
+    //   return pinnacleModel.get('tokens') > 0
+    // })
 
-    if(successTransition) {
-      _.each(placesBefore, (pinnacleModel) => {
-        pinnacleModel.set('tokens', pinnacleModel.get('tokens') - Math.min.apply(placesBefore.get('tokens')))
-        // Math.min.apply(placesBefore.get('tokens')) need to find min value of token values
-      })
-    }
+    // if(placesBefore.length > 1) {
+    //   if(successTransition) {
+    //     _.each(placesBefore, (pinnacleModel) => {
+    //       console.log(pinnacleModel.attr('.label/text'))
+    //       pinnacleModel.set('tokens', pinnacleModel.get('tokens') - _.min(_.invoke(placesBefore, 'get', 'tokens')))
+    //     })
+    //   }
+    // }
 
     _.each(placesAfter, (pinnacleModel) => {
       let linked = _.find(outbound, (link) => {
@@ -85,17 +79,8 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
 
       if(getBaseTransition(transition) > 0) {
         paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
-
-          switch(transition.attr('.label/text')) {
-            case 'T5':
-              pinnacleModel.set('tokens', pinnacleModel.get('tokens') + 0)
-              break
-            case 'T4':
-              pinnacleModel.set('tokens', pinnacleModel.get('tokens') + 0)
-              break
-            default:
-              pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
-              break
+          if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
+            pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
           }
           setBaseTransition(transition, (getBaseTransition(transition) === 0) ? 0 : getBaseTransition(transition) - 1)
           callback(transition.attr('.label/text'))
@@ -128,4 +113,18 @@ function getFirableTransitionsCount(graph, paper, transitions) {
     }
   })
   return firableCount
+}
+
+function getFilteredLinkCount(placesBefore, inbound) {
+  let linkCount = 0
+  _.each(placesBefore, (pinnacleModel) => {
+    let linked = _.find(inbound, (link) => {
+      return link.get('source').id === pinnacleModel.id
+    })
+
+    if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
+      linkCount += 1
+    }
+  })
+  return linkCount
 }

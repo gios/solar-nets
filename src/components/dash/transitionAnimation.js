@@ -31,13 +31,12 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
   })
 
   let isFirable = true
-  // Error happend when needs more than 2000
   _.each(placesBefore, (pinnacleModel) => {
-    // console.log(pinnacleModel.attr('.label/text'), pinnacleModel.get('tokens'), getFilteredLinkCount(placesBefore, inbound))
     if(pinnacleModel.get('tokens') === 0) {
       isFirable = false
     } else if(getFilteredLinkCount(placesBefore, inbound) > 1) {
-      // console.log(pinnacleModel.attr('.label/text'), getFilteredLinkCount(placesBefore, inbound))
+      isFirable = true
+    } else {
       isFirable = true
     }
   })

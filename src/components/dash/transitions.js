@@ -16,6 +16,10 @@ export function getTimeTransition(transitionModel) {
   return +transitionModel.attr('.label-time/text').split(' ')[2]
 }
 
+export function setTimeTransition(transitionModel, time) {
+  transitionModel.attr('.label-time/text', `t = ${time}`)
+}
+
 export let transitionT3 = new pn.Transition({
   markup: '<g class="rotatable"><g class="scalable"><rect class="root"/></g></g>' +
   '<text class="label"/><text class="label-time"/><text class="label-base"/>',

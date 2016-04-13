@@ -17,7 +17,7 @@ export const onSimulationStop = () => {
   }
 }
 
-export const addIterations = (iterations) => {
+export const onAddIterations = (iterations) => {
   return {
     type: ADD_ITERATIONS,
     iterations

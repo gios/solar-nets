@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import { NotificationManager } from 'react-notifications';
 import { throttle } from '../../utils/helpers'
 import { MOBILE_MAX_WIDTH, VERSION } from '../../constants'
 
@@ -53,7 +54,11 @@ class Sidebar extends Component {
   triggerRoute(e) {
     let { simulation, isMobileView } = this.props
     isMobileView && this.toggleSidebar()
-    simulation && e.preventDefault()
+
+    if(simulation) {
+      e.preventDefault()
+      NotificationManager.info('To continue you are need to stop current simulation', 'Stop Current Simulation', 10000)
+    }
   }
 
   render() {

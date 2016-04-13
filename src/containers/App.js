@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import Sidebar from '../components/sidebar/Sidebar'
 import { onToggleSidebar, onMobileSidebar } from '../actions/sidebarActions'
+import { NotificationContainer } from 'react-notifications'
 
 class App extends Component {
 
@@ -10,6 +11,7 @@ class App extends Component {
     return (
       <div>
         <div>
+          <NotificationContainer/>
           <Sidebar currentRoute={currentRoute}
                    simulation={simulation}
                    isToggled={isToggled}

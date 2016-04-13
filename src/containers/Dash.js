@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SolarNet from '../components/dash/SolarNet'
-import { simulationStart, simulationStop, addIterations, setPendingStop } from '../actions/dashActions'
+import { onSimulationStart, simulationStop, addIterations, setPendingStop } from '../actions/dashActions'
 
 class Dash extends Component {
 
@@ -12,7 +12,7 @@ class Dash extends Component {
         <SolarNet simulation={simulation}
                   iterations={iterations}
                   isPendingStop={isPendingStop}
-                  onStartSimulation={() => dispatch(simulationStart())}
+                  onSimulationStart={() => dispatch(onSimulationStart())}
                   onStopSimulation={() => dispatch(simulationStop())}
                   onAddIterations={(value) => dispatch(addIterations(value))}
                   onSetPendingStop={(value) => dispatch(setPendingStop(value))}/>

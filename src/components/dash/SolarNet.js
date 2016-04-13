@@ -114,7 +114,7 @@ class SolarNet extends Component {
   startInfinityTransition() {
     let { onAddIterations, onSetPendingStop } = this.props
     onSetPendingStop(false)
-    this.props.onStartSimulation()
+    this.props.onSimulationStart()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
@@ -135,7 +135,7 @@ class SolarNet extends Component {
   startTransitionOnce() {
     let { onAddIterations, onSetPendingStop } = this.props
     onSetPendingStop(false)
-    this.props.onStartSimulation()
+    this.props.onSimulationStart()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {

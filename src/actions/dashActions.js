@@ -3,7 +3,7 @@ export const SIMULATION_STOP = 'SIMULATION_STOP'
 export const ADD_ITERATIONS = 'ADD_ITERATIONS'
 export const PENDING_STOP = 'PENDING_STOP'
 
-export const simulationStart = () => {
+export const onSimulationStart = () => {
   return {
     type: SIMULATION_START,
     simulation: true

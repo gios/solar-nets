@@ -78,14 +78,7 @@ class SolarNet extends Component {
       pinnacleSellingSolarEnergy,
 
       // Transitions
-      transitionT3,
-      transitionT5,
-      transitionT1,
-      transitionT2,
-      transitionT4,
-      transitionT7,
-      transitionT8,
-      transitionT6
+      this.transitions
     ])
 
     this.graph.addCell([

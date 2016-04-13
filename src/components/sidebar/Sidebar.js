@@ -77,17 +77,9 @@ class Sidebar extends Component {
           {(this.state.isMobileView) ? toggleSidebarBtn : null}
           <div className='navbar-info'>
             <p className='navbar-logo'>Solar Nets</p>
-            <div className='navbar-user-info'>
-              <div>
-                <div>Pavlo</div>
-                <div>Blazhchuk</div>
-              </div>
-            </div>
           </div>
           <div className='project-description'>
-            <span className='label label-primary'>
-              Monitoring solar power via Petri Nets
-            </span>
+            Monitoring solar power via Petri Nets
           </div>
           <ul className='nav sidebar-list-static'>
             <li className='nav-item'>
@@ -120,7 +112,7 @@ class Sidebar extends Component {
           </ul>
           <div className='navbar-footer'>
             <span className='label label-success text-xs-center'>Alpha v{VERSION}</span>
-            <p>&copy; 2016</p>
+            <p>Pavlo Blazhchuk &copy; 2016</p>
           </div>
         </nav>
         {(this.state.isMobileView) ? toggleSidebarBtnContent : null}

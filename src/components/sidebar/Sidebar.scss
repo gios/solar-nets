@@ -28,12 +28,16 @@
 }
 
 .project-description {
-  width: 100%;
+  position: relative;
+  left: 2.5%;
+  width: 95%;
   text-align: center;
-
-  & > span {
-    margin: 1em;
-  }
+  color: #fff;
+  font-size: 16px;
+  padding: 0.5em 3em;
+  margin-bottom: 1em;
+  border: 1px solid darken(#5cb85c, 10%);
+  border-radius: 3em;
 }
 
 .toggle-sidebar-button {
@@ -70,7 +74,7 @@
   .navbar-logo {
     color: darken(#5cb85c, 10%);
     font-size: 20px;
-    margin: 0 0 10px;
+    margin: 0.3em;
     text-align: center;
     font-weight: 700;
   }
@@ -84,12 +88,6 @@
     & > i {
       cursor: pointer;
     }
-  }
-
-  .navbar-user-info {
-    text-align: center;
-    color: #fff;
-    margin: .5em;
   }
 }
 

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import dashView from './dashReducer'
+import dash from './dashReducer'
 
 const solarNets = combineReducers({
-  dashView
+  dash
 })
 
 export default solarNets

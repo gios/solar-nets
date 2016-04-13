@@ -9,7 +9,7 @@ const sidebarState = Immutable.Map({
   isMobileView: currentMode
 })
 
-function sidebarView(state = sidebarState, action) {
+function sidebar(state = sidebarState, action) {
   switch (action.type) {
     case TOGGLE_SIDEBAR:
       return state.merge({
@@ -25,4 +25,4 @@ function sidebarView(state = sidebarState, action) {
   }
 }
 
-export default sidebarView
+export default sidebar

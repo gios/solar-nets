@@ -5,19 +5,19 @@ const dashState = Immutable.Map({
   simulation: false
 })
 
-const dashView = (state = dashState, action) => {
+const dash = (state = dashState, action) => {
   switch (action.type) {
     case SIMULATION_START:
       return state.merge({
-        simulation: true
+        simulation: action.simulation
       })
     case SIMULATION_STOP:
       return state.merge({
-        simulation: false
+        simulation: action.simulation
       })
     default:
       return state
   }
 }
 
-export default dashView
+export default dash

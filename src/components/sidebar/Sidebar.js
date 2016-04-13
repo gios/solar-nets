@@ -58,7 +58,7 @@ class Sidebar extends Component {
   }
 
   triggerRoute(e) {
-    this.toggleSidebar()
+    this.state.isMobileView && this.toggleSidebar()
     this.props.simulation && e.preventDefault()
   }
 

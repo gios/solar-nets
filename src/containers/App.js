@@ -23,7 +23,7 @@ class App extends Component {
 
 function injector(state, ownProps) {
   return {
-    simulation: state.dashView.get('simulation'),
+    simulation: state.dash.get('simulation'),
     currentRoute: ownProps.location.pathname
   }
 }

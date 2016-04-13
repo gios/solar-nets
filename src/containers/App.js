@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
-import Sidebar from './sidebar/Sidebar'
+import Sidebar from '../components/sidebar/Sidebar'
 
 class App extends Component {
 

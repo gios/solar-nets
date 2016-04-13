@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import SolarNet from './SolarNet'
-import { simulationStart, simulationStop } from '../../actions/dashActions'
+import SolarNet from '../components/dash/SolarNet'
+import { simulationStart, simulationStop } from '../actions/dashActions'
 
 class Dash extends Component {
 

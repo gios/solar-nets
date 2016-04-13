@@ -7,10 +7,10 @@ import { createStore, compose } from 'redux'
 // Routing
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-// Components
-import App from './components/App'
-import Dash from './components/dash/Dash'
-import About from './components/about/About'
+// Containers
+import App from './containers/App'
+import Dash from './containers/Dash'
+import About from './containers/About'
 
 // Styles (SCSS)
 import './index.scss'

@@ -57,6 +57,10 @@ class Sidebar extends Component {
     return (currentRoute === route) ? 'nav-link sidebar-link active' : 'nav-link sidebar-link'
   }
 
+  triggerRoute() {
+    this.toggleSidebar()
+  }
+
   render() {
     let toggleSidebarBtn = (
       <div className='toggle-sidebar-button'>
@@ -83,7 +87,7 @@ class Sidebar extends Component {
           </div>
           <ul className='nav sidebar-list-static'>
             <li className='nav-item'>
-              <Link to='/' className={this.routeSelector('/')}>
+              <Link to='/' className={this.routeSelector('/')} onClick={this.triggerRoute.bind(this)}>
                 <i className='fa fa-dashcube'></i>
                 <span className='sidebar-list-item'>Dash</span>
               </Link>
@@ -104,7 +108,7 @@ class Sidebar extends Component {
               <a className='nav-link sidebar-link deactivate'></a>
             </li>
             <li className='nav-item'>
-              <Link to='/about' className={this.routeSelector('/about')}>
+              <Link to='/about' className={this.routeSelector('/about')} onClick={this.triggerRoute.bind(this)}>
                 <i className='fa fa-rss'></i>
                 <span className='sidebar-list-item'>About</span>
               </Link>

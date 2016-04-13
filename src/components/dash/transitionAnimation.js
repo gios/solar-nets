@@ -3,6 +3,7 @@ import { getLinkValue } from './linkConnections'
 import { setBaseTransition, getBaseTransition, getTimeTransition } from './transitions'
 
 const dottedLink = '2,5'
+let transitionFireCount = 0
 
 export default function fireTransition(graph, paper, transitions, callback) {
   let finishDelay = []
@@ -10,7 +11,8 @@ export default function fireTransition(graph, paper, transitions, callback) {
   _.each(transitions, (transition) => {
     fireTransitionOnce(graph, paper, transition, getTimeTransition(transition), (name) => {
       if(firableTransition === finishDelay.length) {
-        callback()
+        transitionFireCount += 1
+        callback(transitionFireCount)
       }
       finishDelay.push(name)
       finishDelay = _.uniq(finishDelay)

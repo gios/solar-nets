@@ -43,7 +43,6 @@ class SolarNet extends Component {
     ]
 
     this.state = {
-      simulate: false,
       iterations: 0,
       stop: false,
       waitingLastIteration: false
@@ -122,7 +121,7 @@ class SolarNet extends Component {
   }
 
   startInfinityTransition() {
-    this.setState({ simulate: true, stop: false })
+    this.setState({ stop: false })
     this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
@@ -133,7 +132,6 @@ class SolarNet extends Component {
         } else {
           this.stopAnimationBtnStop(this.refs.stopSimulation)
           this.props.onStopSimulation()
-          this.setState({ simulate: false })
         }
       })
     }
@@ -142,14 +140,14 @@ class SolarNet extends Component {
   }
 
   startTransitionOnce() {
-    this.setState({ simulate: true, stop: false })
+    this.setState({ stop: false })
     this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
         this.stopAnimationBtnStop(this.refs.stopSimulation)
         this.props.onStopSimulation()
-        this.setState({ simulate: false, iterations })
+        this.setState({ iterations })
       })
     }
 
@@ -174,22 +172,23 @@ class SolarNet extends Component {
   }
 
   render() {
+    let { simulation } = this.props
     return (
       <div className='text-xs-center'>
         <div id='solar-petri-net'></div>
         <button onClick={this.startTransitionOnce.bind(this)}
                 type='button'
                 className='btn btn-primary m-x-1'
-                disabled={this.state.simulate}>Start Simulation</button>
+                disabled={simulation}>Start Simulation</button>
         <button onClick={this.startInfinityTransition.bind(this)}
                 type='button'
                 className='btn btn-primary m-x-1'
-                disabled={this.state.simulate}>Start Infinity Simulation</button>
+                disabled={simulation}>Start Infinity Simulation</button>
         <button onClick={this.stopTransition.bind(this)}
                 type='button'
                 ref='stopSimulation'
                 className='btn btn-danger m-x-1'
-                disabled={!this.state.simulate || this.state.waitingLastIteration}>Stop Simulation</button>
+                disabled={!simulation || this.state.waitingLastIteration}>Stop Simulation</button>
       </div>
     )
   }

@@ -6,10 +6,11 @@ import { simulationStart, simulationStop } from '../actions/dashActions'
 class Dash extends Component {
 
   render() {
-    let { dispatch } = this.props
+    let { dispatch, simulation } = this.props
     return (
       <div className='col-md-12'>
-        <SolarNet onStartSimulation={() => dispatch(simulationStart())}
+        <SolarNet simulation={simulation}
+                  onStartSimulation={() => dispatch(simulationStart())}
                   onStopSimulation={() => dispatch(simulationStop())}/>
       </div>
     )

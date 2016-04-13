@@ -169,6 +169,9 @@ class SolarNet extends Component {
     let { simulation } = this.props
     return (
       <div className='text-xs-center'>
+        <h5 className='iterations-counter'>
+          Iterations: <span className='label label-default'>{this.state.iterations}</span>
+        </h5>
         <div id='solar-petri-net'></div>
         <button onClick={this.startTransitionOnce.bind(this)}
                 type='button'

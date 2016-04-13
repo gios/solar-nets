@@ -120,7 +120,7 @@ class SolarNet extends Component {
     this.paper.remove()
   }
 
-  startTransition() {
+  startInfinityTransition() {
     this.setState({ simulate: true, stop: false })
 
     function simulate(graph, paper, transitions) {
@@ -160,8 +160,8 @@ class SolarNet extends Component {
         <button onClick={this.startTransitionOnce.bind(this)}
                 type='button'
                 className='btn btn-primary m-x-1'
-                disabled={this.state.simulate}>Start Once Simulation</button>
-        <button onClick={this.startTransition.bind(this)}
+                disabled={this.state.simulate}>Start Simulation</button>
+        <button onClick={this.startInfinityTransition.bind(this)}
                 type='button'
                 className='btn btn-primary m-x-1'
                 disabled={this.state.simulate}>Start Infinity Simulation</button>

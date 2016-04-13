@@ -130,8 +130,9 @@ class SolarNet extends Component {
           simulate.call(this, graph, paper, transitions)
           this.setState({ iterations })
         } else {
-          this.stopAnimationBtnStop(this.refs.stopSimulation)
           this.props.onStopSimulation()
+          this.stopAnimationBtnStop(this.refs.stopSimulation)
+          this.setState({ iterations })
         }
       })
     }
@@ -145,8 +146,8 @@ class SolarNet extends Component {
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
-        this.stopAnimationBtnStop(this.refs.stopSimulation)
         this.props.onStopSimulation()
+        this.stopAnimationBtnStop(this.refs.stopSimulation)
         this.setState({ iterations })
       })
     }

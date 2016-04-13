@@ -8,7 +8,7 @@ export function onToggleSidebar(toggle) {
   }
 }
 
-export function setMobileSidebar(mobile) {
+export function onMobileSidebar(mobile) {
   return {
     type: MOBILE_SIDEBAR,
     mobile

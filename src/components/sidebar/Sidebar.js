@@ -19,15 +19,15 @@ class Sidebar extends Component {
   }
 
   windowSizeAction(el) {
-    let { onToggleSidebar, onIsMobileView } = this.props
+    let { onToggleSidebar, onMobileSidebar } = this.props
 
     if (window.innerWidth < MOBILE_MAX_WIDTH) {
       onToggleSidebar(true)
-      onIsMobileView(true)
+      onMobileSidebar(true)
       el.classList.add('toggle')
     } else {
       onToggleSidebar(false)
-      onIsMobileView(false)
+      onMobileSidebar(false)
       el.classList.remove('toggle')
     }
   }

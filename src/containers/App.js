@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import Sidebar from '../components/sidebar/Sidebar'
-import { onToggleSidebar, setMobileSidebar } from '../actions/sidebarActions'
+import { onToggleSidebar, onMobileSidebar } from '../actions/sidebarActions'
 
 class App extends Component {
 
@@ -15,7 +15,7 @@ class App extends Component {
                    isToggled={isToggled}
                    isMobileView={isMobileView}
                    onToggleSidebar={(value) => dispatch(onToggleSidebar(value))}
-                   onIsMobileView={(value) => dispatch(setMobileSidebar(value))}/>
+                   onMobileSidebar={(value) => dispatch(onMobileSidebar(value))}/>
           <div className='content-wrapper'>
             <div className='container-fluid'>
               {this.props.children}

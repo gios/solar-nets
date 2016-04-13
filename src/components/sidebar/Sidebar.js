@@ -19,28 +19,28 @@ class Sidebar extends Component {
   }
 
   windowSizeAction(el) {
-    let { onIsToggled, onIsMobileView } = this.props
+    let { onToggleSidebar, onIsMobileView } = this.props
 
     if (window.innerWidth < MOBILE_MAX_WIDTH) {
-      onIsToggled(true)
+      onToggleSidebar(true)
       onIsMobileView(true)
       el.classList.add('toggle')
     } else {
-      onIsToggled(false)
+      onToggleSidebar(false)
       onIsMobileView(false)
       el.classList.remove('toggle')
     }
   }
 
   toggleSidebar() {
-    let { onIsToggled, isToggled } = this.props
+    let { onToggleSidebar, isToggled } = this.props
     let sidebarEl = document.querySelector('.navbar-static')
 
     if (isToggled) {
-      onIsToggled(false)
+      onToggleSidebar(false)
       sidebarEl.classList.remove('toggle')
     } else {
-      onIsToggled(true)
+      onToggleSidebar(true)
       sidebarEl.classList.add('toggle')
     }
   }

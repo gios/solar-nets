@@ -134,7 +134,7 @@ class SolarNet extends Component {
 
   render() {
     return (
-      <div>
+      <div className='text-xs-center'>
         <div id='solar-petri-net'></div>
         <button onClick={this.startTransition.bind(this)}
                 type='button'

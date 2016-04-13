@@ -88,10 +88,10 @@ class Sidebar extends Component {
               </div>
             </div>
           </div>
-          <div className='createDiscussion'>
-            <a href='javascript:void(0)' type='button' className='btn btn-success btn-sm' role='button'>
-              Generate
-            </a>
+          <div className='project-description'>
+            <span className='label label-primary'>
+              Monitoring solar power via Petri Nets
+            </span>
           </div>
           <ul className='nav sidebar-list-static'>
             <li className='nav-item'>

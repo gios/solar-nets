@@ -1,11 +1,11 @@
 import Immutable from 'immutable'
 import { SIMULATION_START, SIMULATION_STOP } from '../actions/dashActions'
 
-const dashDefault = Immutable.Map({
+const dashState = Immutable.Map({
   simulation: false
 })
 
-const dashReducer = (state = dashDefault, action) => {
+const dashView = (state = dashState, action) => {
   switch (action.type) {
     case SIMULATION_START:
       return state.merge({
@@ -20,4 +20,4 @@ const dashReducer = (state = dashDefault, action) => {
   }
 }
 
-export default dashReducer
+export default dashView

@@ -19,7 +19,7 @@ class Dash extends Component {
 
 function injector(state) {
   return {
-    simulation: state.dashReducer.get('simulation')
+    simulation: state.dashView.get('simulation')
   }
 }
 

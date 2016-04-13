@@ -43,7 +43,6 @@ class SolarNet extends Component {
     ]
 
     this.state = {
-      stop: false,
       waitingLastIteration: false
     }
   }
@@ -113,13 +112,13 @@ class SolarNet extends Component {
   }
 
   startInfinityTransition() {
-    this.setState({ stop: false })
-    let { onAddIterations } = this.props
+    let { onAddIterations, onSetPendingStop } = this.props
+    onSetPendingStop(false)
     this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
-        if(!this.state.stop) {
+        if(!this.props.isPendingStop) {
           simulate.call(this, graph, paper, transitions)
           onAddIterations(iterations)
         } else {
@@ -134,8 +133,8 @@ class SolarNet extends Component {
   }
 
   startTransitionOnce() {
-    this.setState({ stop: false })
-    let { onAddIterations } = this.props
+    let { onAddIterations, onSetPendingStop } = this.props
+    onSetPendingStop(false)
     this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
@@ -151,7 +150,7 @@ class SolarNet extends Component {
 
   stopTransition() {
     this.startAnimationBtnStop(this.refs.stopSimulation)
-    this.setState({ stop: true })
+    this.props.onSetPendingStop(true)
   }
 
   startAnimationBtnStop(elem) {

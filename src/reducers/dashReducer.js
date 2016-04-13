@@ -1,9 +1,10 @@
 import Immutable from 'immutable'
-import { SIMULATION_START, SIMULATION_STOP, ADD_ITERATIONS } from '../actions/dashActions'
+import { SIMULATION_START, SIMULATION_STOP, ADD_ITERATIONS, PENDING_STOP } from '../actions/dashActions'
 
 const dashState = Immutable.Map({
   simulation: false,
-  iterations: 0
+  iterations: 0,
+  isPendingStop: false
 })
 
 const dash = (state = dashState, action) => {
@@ -19,6 +20,10 @@ const dash = (state = dashState, action) => {
     case ADD_ITERATIONS:
       return state.merge({
         iterations: action.iterations
+      })
+    case PENDING_STOP:
+      return state.merge({
+        isPendingStop: action.isPendingStop
       })
     default:
       return state

@@ -1,15 +1,21 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import Sidebar from '../components/sidebar/Sidebar'
+import { toggleSidebar, setMobileSidebar } from '../actions/sidebarActions'
 
 class App extends Component {
 
   render() {
-    let { simulation, currentRoute } = this.props
+    let { dispatch, simulation, currentRoute, isToggled, isMobileView } = this.props
     return (
       <div>
         <div>
-          <Sidebar currentRoute={currentRoute} simulation={simulation}/>
+          <Sidebar currentRoute={currentRoute}
+                   simulation={simulation}
+                   isToggled={isToggled}
+                   isMobileView={isMobileView}
+                   onIsToggled={(value) => dispatch(toggleSidebar(value))}
+                   onIsMobileView={(value) => dispatch(setMobileSidebar(value))}/>
           <div className='content-wrapper'>
             <div className='container-fluid'>
               {this.props.children}
@@ -24,7 +30,9 @@ class App extends Component {
 function injector(state, ownProps) {
   return {
     simulation: state.dash.get('simulation'),
-    currentRoute: ownProps.location.pathname
+    currentRoute: ownProps.location.pathname,
+    isToggled: state.sidebar.get('isToggled'),
+    isMobileView: state.sidebar.get('isMobileView')
   }
 }
 

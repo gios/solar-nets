@@ -7,12 +7,6 @@ class Sidebar extends Component {
 
   constructor(props) {
     super(props)
-    let currentMode = (window.innerWidth < MOBILE_MAX_WIDTH) ? true : false
-
-    this.state = {
-      isToggled: currentMode,
-      isMobileView: currentMode
-    }
   }
 
   componentDidMount() {
@@ -25,29 +19,28 @@ class Sidebar extends Component {
   }
 
   windowSizeAction(el) {
+    let { onIsToggled, onIsMobileView } = this.props
+
     if (window.innerWidth < MOBILE_MAX_WIDTH) {
-      this.setState({
-        isToggled: true,
-        isMobileView: true
-      })
+      onIsToggled(true)
+      onIsMobileView(true)
       el.classList.add('toggle')
     } else {
-      this.setState({
-        isToggled: false,
-        isMobileView: false
-      })
+      onIsToggled(false)
+      onIsMobileView(false)
       el.classList.remove('toggle')
     }
   }
 
   toggleSidebar() {
+    let { onIsToggled, isToggled } = this.props
     let sidebarEl = document.querySelector('.navbar-static')
 
-    if (this.state.isToggled) {
-      this.setState({ isToggled: false })
+    if (isToggled) {
+      onIsToggled(false)
       sidebarEl.classList.remove('toggle')
     } else {
-      this.setState({ isToggled: true })
+      onIsToggled(true)
       sidebarEl.classList.add('toggle')
     }
   }
@@ -58,8 +51,9 @@ class Sidebar extends Component {
   }
 
   triggerRoute(e) {
-    this.state.isMobileView && this.toggleSidebar()
-    this.props.simulation && e.preventDefault()
+    let { simulation, isMobileView } = this.props
+    isMobileView && this.toggleSidebar()
+    simulation && e.preventDefault()
   }
 
   render() {
@@ -76,10 +70,12 @@ class Sidebar extends Component {
       </span>
     )
 
+    let { isMobileView } = this.props
+
     return (
       <div>
         <nav role='navigation' className='navbar navbar-dark navbar-static'>
-          {(this.state.isMobileView) ? toggleSidebarBtn : null}
+          {(isMobileView) ? toggleSidebarBtn : null}
           <div className='navbar-info'>
             <p className='navbar-logo'>Solar Nets</p>
           </div>
@@ -120,7 +116,7 @@ class Sidebar extends Component {
             <p>Pavlo Blazhchuk &copy; 2016</p>
           </div>
         </nav>
-        {(this.state.isMobileView) ? toggleSidebarBtnContent : null}
+        {(isMobileView) ? toggleSidebarBtnContent : null}
       </div>
     )
   }

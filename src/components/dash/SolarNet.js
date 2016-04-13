@@ -41,10 +41,6 @@ class SolarNet extends Component {
       transitionT8,
       transitionT6
     ]
-
-    this.state = {
-      waitingLastIteration: false
-    }
   }
 
   componentDidMount() {
@@ -154,19 +150,17 @@ class SolarNet extends Component {
   }
 
   startAnimationBtnStop(elem) {
-    this.setState({ waitingLastIteration: true }, () => {
-      $(elem).html(`<i class='fa fa-refresh fa-spin'></i> Waiting for last iteration...`)
-    })
+    this.props.onWaitingLastIteration(true)
+    $(elem).html(`<i class='fa fa-refresh fa-spin'></i> Waiting for last iteration...`)
   }
 
   stopAnimationBtnStop(elem) {
-    this.setState({ waitingLastIteration: false }, () => {
-      $(elem).html(`Stop Simulation`)
-    })
+    this.props.onWaitingLastIteration(false)
+    $(elem).html(`Stop Simulation`)
   }
 
   render() {
-    let { simulation, iterations } = this.props
+    let { simulation, iterations, waitingLastIteration } = this.props
     return (
       <div className='text-xs-center'>
         <h5 className='iterations-counter'>
@@ -185,7 +179,7 @@ class SolarNet extends Component {
                 type='button'
                 ref='stopSimulation'
                 className='btn btn-danger m-x-1'
-                disabled={!simulation || this.state.waitingLastIteration}>Stop Simulation</button>
+                disabled={!simulation || waitingLastIteration}>Stop Simulation</button>
       </div>
     )
   }

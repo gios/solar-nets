@@ -2,6 +2,7 @@ export const SIMULATION_START = 'SIMULATION_START'
 export const SIMULATION_STOP = 'SIMULATION_STOP'
 export const ADD_ITERATIONS = 'ADD_ITERATIONS'
 export const PENDING_STOP = 'PENDING_STOP'
+export const WAITING_LAST_ITERATION = 'WAITING_LAST_ITERATION'
 
 export const onSimulationStart = () => {
   return {
@@ -28,5 +29,12 @@ export const onPendingStop = (isPendingStop) => {
   return {
     type: PENDING_STOP,
     isPendingStop
+  }
+}
+
+export const onWaitingLastIteration = (waitingLastIteration) => {
+  return {
+    type: WAITING_LAST_ITERATION,
+    waitingLastIteration
   }
 }

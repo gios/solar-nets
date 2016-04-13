@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import SolarNet from '../components/dash/SolarNet'
-import { simulationStart, simulationStop } from '../actions/dashActions'
+import { simulationStart, simulationStop, addIterations } from '../actions/dashActions'
 
 class Dash extends Component {
 
   render() {
-    let { dispatch, simulation } = this.props
+    let { dispatch, simulation, iterations } = this.props
     return (
       <div className='col-md-12'>
         <SolarNet simulation={simulation}
+                  iterations={iterations}
                   onStartSimulation={() => dispatch(simulationStart())}
-                  onStopSimulation={() => dispatch(simulationStop())}/>
+                  onStopSimulation={() => dispatch(simulationStop())}
+                  onAddIterations={(value) => dispatch(addIterations(value))}/>
       </div>
     )
   }
@@ -19,7 +21,8 @@ class Dash extends Component {
 
 function injector(state) {
   return {
-    simulation: state.dash.get('simulation')
+    simulation: state.dash.get('simulation'),
+    iterations: state.dash.get('iterations')
   }
 }
 

@@ -43,7 +43,6 @@ class SolarNet extends Component {
     ]
 
     this.state = {
-      iterations: 0,
       stop: false,
       waitingLastIteration: false
     }
@@ -115,17 +114,18 @@ class SolarNet extends Component {
 
   startInfinityTransition() {
     this.setState({ stop: false })
+    let { onAddIterations } = this.props
     this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
         if(!this.state.stop) {
           simulate.call(this, graph, paper, transitions)
-          this.setState({ iterations })
+          onAddIterations(iterations)
         } else {
           this.props.onStopSimulation()
           this.stopAnimationBtnStop(this.refs.stopSimulation)
-          this.setState({ iterations })
+          onAddIterations(iterations)
         }
       })
     }
@@ -135,13 +135,14 @@ class SolarNet extends Component {
 
   startTransitionOnce() {
     this.setState({ stop: false })
+    let { onAddIterations } = this.props
     this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
         this.props.onStopSimulation()
         this.stopAnimationBtnStop(this.refs.stopSimulation)
-        this.setState({ iterations })
+        onAddIterations(iterations)
       })
     }
 
@@ -166,11 +167,11 @@ class SolarNet extends Component {
   }
 
   render() {
-    let { simulation } = this.props
+    let { simulation, iterations } = this.props
     return (
       <div className='text-xs-center'>
         <h5 className='iterations-counter'>
-          Iterations: <span className='label label-default'>{this.state.iterations}</span>
+          Iterations: <span className='label label-default'>{iterations}</span>
         </h5>
         <div id='solar-petri-net'></div>
         <button onClick={this.startTransitionOnce.bind(this)}

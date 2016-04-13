@@ -45,7 +45,8 @@ class SolarNet extends Component {
     this.state = {
       simulate: false,
       iterations: 0,
-      stop: false
+      stop: false,
+      waitingLastIteration: false
     }
   }
 
@@ -129,6 +130,7 @@ class SolarNet extends Component {
           simulate.call(this, graph, paper, transitions)
           this.setState({ iterations })
         } else {
+          this.stopAnimationBtnStop(this.refs.stopSimulation)
           this.setState({ simulate: false })
         }
       })
@@ -142,6 +144,7 @@ class SolarNet extends Component {
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
+        this.stopAnimationBtnStop(this.refs.stopSimulation)
         this.setState({ simulate: false, iterations })
       })
     }
@@ -150,7 +153,20 @@ class SolarNet extends Component {
   }
 
   stopTransition() {
+    this.startAnimationBtnStop(this.refs.stopSimulation)
     this.setState({ stop: true })
+  }
+
+  startAnimationBtnStop(elem) {
+    this.setState({ waitingLastIteration: true }, () => {
+      $(elem).html(`<i class='fa fa-refresh fa-spin'></i> Waiting for last iteration...`)
+    })
+  }
+
+  stopAnimationBtnStop(elem) {
+    this.setState({ waitingLastIteration: false }, () => {
+      $(elem).html(`Stop Simulation`)
+    })
   }
 
   render() {
@@ -167,8 +183,9 @@ class SolarNet extends Component {
                 disabled={this.state.simulate}>Start Infinity Simulation</button>
         <button onClick={this.stopTransition.bind(this)}
                 type='button'
+                ref='stopSimulation'
                 className='btn btn-danger m-x-1'
-                disabled={!this.state.simulate}>Stop Simulation</button>
+                disabled={!this.state.simulate || this.state.waitingLastIteration}>Stop Simulation</button>
       </div>
     )
   }

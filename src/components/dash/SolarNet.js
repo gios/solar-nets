@@ -126,7 +126,7 @@ class SolarNet extends Component {
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
         if(!this.state.stop) {
-          simulate(graph, paper, transitions)
+          simulate.call(this, graph, paper, transitions)
           this.setState({ iterations })
         } else {
           this.setState({ simulate: false })

@@ -52,7 +52,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
         if(pinnacleModel.get('tokens') >= getLinkValue(linked)) {
           setBaseTransition(transition, getBaseTransition(transition) + (inbound.length) ? 1 : 0)
-          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000)
+          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / 5)
 
           _.defer(() => {
             if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
@@ -84,7 +84,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       })
 
       if(getBaseTransition(transition) > 0) {
-        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, sec * 1000, () => {
+        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / 5, () => {
           if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
             pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
           } else {

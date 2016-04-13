@@ -10,7 +10,7 @@ export const onSimulationStart = () => {
   }
 }
 
-export const simulationStop = () => {
+export const onSimulationStop = () => {
   return {
     type: SIMULATION_STOP,
     simulation: false

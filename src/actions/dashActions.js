@@ -24,7 +24,7 @@ export const onAddIterations = (iterations) => {
   }
 }
 
-export const setPendingStop = (isPendingStop) => {
+export const onPendingStop = (isPendingStop) => {
   return {
     type: PENDING_STOP,
     isPendingStop

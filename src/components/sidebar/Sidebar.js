@@ -57,8 +57,9 @@ class Sidebar extends Component {
     return (currentRoute === route) ? 'nav-link sidebar-link active' : 'nav-link sidebar-link'
   }
 
-  triggerRoute() {
+  triggerRoute(e) {
     this.toggleSidebar()
+    this.props.simulation && e.preventDefault()
   }
 
   render() {

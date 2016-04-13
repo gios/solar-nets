@@ -123,6 +123,7 @@ class SolarNet extends Component {
 
   startInfinityTransition() {
     this.setState({ simulate: true, stop: false })
+    this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
@@ -131,6 +132,7 @@ class SolarNet extends Component {
           this.setState({ iterations })
         } else {
           this.stopAnimationBtnStop(this.refs.stopSimulation)
+          this.props.onStopSimulation()
           this.setState({ simulate: false })
         }
       })
@@ -141,10 +143,12 @@ class SolarNet extends Component {
 
   startTransitionOnce() {
     this.setState({ simulate: true, stop: false })
+    this.props.onStartSimulation()
 
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
         this.stopAnimationBtnStop(this.refs.stopSimulation)
+        this.props.onStopSimulation()
         this.setState({ simulate: false, iterations })
       })
     }

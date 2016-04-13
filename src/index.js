@@ -1,6 +1,8 @@
 // React, Redux
 import React from 'react'
 import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore, compose } from 'redux'
 
 // Routing
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
@@ -20,12 +22,20 @@ window.$ = window.jQuery = $
 window.Tether = Tether
 require('bootstrap')
 
+// Store
+import solarNets from './reducers'
+const store = createStore(solarNets, compose(
+  window.devToolsExtension ? window.devToolsExtension() : f => f
+))
+
 render(
-  <Router history={browserHistory}>
-    <Route path='/' component={App}>
-      <IndexRoute component={Dash}/>
-      <Route path='about' component={About}/>
-    </Route>
-  </Router>,
+  <Provider store={store}>
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <IndexRoute component={Dash}/>
+        <Route path='about' component={About}/>
+      </Route>
+    </Router>
+  </Provider>,
   document.getElementById('render')
 )

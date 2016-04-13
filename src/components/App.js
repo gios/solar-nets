@@ -1,14 +1,15 @@
+import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import Sidebar from './sidebar/Sidebar'
 
 class App extends Component {
 
   render() {
-    let currentRoute = this.props.location.pathname
+    let { simulation, currentRoute } = this.props
     return (
       <div>
         <div>
-          <Sidebar currentRoute={currentRoute}/>
+          <Sidebar currentRoute={currentRoute} simulation={simulation}/>
           <div className='content-wrapper'>
             <div className='container-fluid'>
               {this.props.children}
@@ -20,4 +21,11 @@ class App extends Component {
   }
 }
 
-export default App
+function injector(state, ownProps) {
+  return {
+    simulation: state.dashReducer.get('simulation'),
+    currentRoute: ownProps.location.pathname
+  }
+}
+
+export default connect(injector)(App)

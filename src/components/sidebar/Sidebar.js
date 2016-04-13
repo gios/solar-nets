@@ -26,10 +26,6 @@ class Sidebar extends Component {
 
   windowSizeAction(el) {
     if (window.innerWidth < MOBILE_MAX_WIDTH) {
-      if (this.state.isMobileView) {
-        return
-      }
-
       this.setState({
         isToggled: true,
         isMobileView: true

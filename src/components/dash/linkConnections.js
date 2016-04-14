@@ -48,6 +48,10 @@ export function getLinkValue(link) {
   return parseInt((linkValue) ? linkValue : 1)
 }
 
+function setLinkValue(link, value) {
+  link.get('labels')[0].attrs.text.text = value
+}
+
 function getLinkByTransition(graph, transition) {
   let outbound = graph.getConnectedLinks(transition, { outbound: true })
 
@@ -60,10 +64,25 @@ export function getConsumerValue(graph, customerTransition) {
   return _.last(getLinkByTransition(graph, customerTransition))
 }
 
+export function setConsumerValue(graph, customerTransition, value) {
+  let outbound = graph.getConnectedLinks(customerTransition, { outbound: true })
+  setLinkValue(_.last(outbound), value)
+}
+
 export function getSolarStationValue(graph, solarStationTransition) {
   return _.last(getLinkByTransition(graph, solarStationTransition))
 }
 
+export function setSolarStationValue(graph, solarStationTransition, value) {
+  let outbound = graph.getConnectedLinks(solarStationTransition, { outbound: true })
+  setLinkValue(_.last(outbound), value)
+}
+
 export function getElectroStationValue(graph, electroStationTransition) {
   return _.last(getLinkByTransition(graph, electroStationTransition))
+}
+
+export function setElectroStationValue(graph, electroStationTransition, value) {
+  let outbound = graph.getConnectedLinks(electroStationTransition, { outbound: true })
+  setLinkValue(_.last(outbound), value)
 }

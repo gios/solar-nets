@@ -1,7 +1,31 @@
 import React, { Component } from 'react'
-import { getConsumerValue, getSolarStationValue, getElectroStationValue } from './linkConnections'
+import { setConsumerValue,
+         getConsumerValue,
+         setSolarStationValue,
+         getSolarStationValue,
+         setElectroStationValue,
+         getElectroStationValue } from './linkConnections'
 
 class NetControls extends Component {
+
+  onChangeNeeds(e) {
+    let { graph, consumerTransition } = this.props
+    let value = e.target.value
+    setConsumerValue(graph, consumerTransition, value)
+  }
+
+  onChangeSolarStation(e) {
+    let { graph, solarStationTransition } = this.props
+    let value = e.target.value
+    setSolarStationValue(graph, solarStationTransition, value)
+  }
+
+  onChangeElectroStation(e) {
+    let { graph, electroStationTransition } = this.props
+    let value = e.target.value
+    setElectroStationValue(graph, electroStationTransition, value)
+  }
+
   render() {
     let { simulation, waitingLastIteration, graph } = this.props
     let { consumerTransition, solarStationTransition, electroStationTransition } = this.props
@@ -32,6 +56,7 @@ class NetControls extends Component {
                      className='form-control'
                      id='InputNeeds'
                      placeholder='Enter needs'
+                     onChange={this.onChangeNeeds.bind(this)}
                      defaultValue={getConsumerValue(graph, consumerTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
             </fieldset>
@@ -41,6 +66,7 @@ class NetControls extends Component {
                      className='form-control'
                      id='InputSolarStation'
                      placeholder='Enter solar station power'
+                     onChange={this.onChangeSolarStation.bind(this)}
                      defaultValue={getSolarStationValue(graph, solarStationTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
             </fieldset>
@@ -50,6 +76,7 @@ class NetControls extends Component {
                      className='form-control'
                      id='InputElectroStation'
                      placeholder='Enter electro station power'
+                     onChange={this.onChangeElectroStation.bind(this)}
                      defaultValue={getElectroStationValue(graph, electroStationTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
             </fieldset>

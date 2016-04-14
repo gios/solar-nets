@@ -3,6 +3,7 @@ export const SIMULATION_STOP = 'SIMULATION_STOP'
 export const ADD_ITERATIONS = 'ADD_ITERATIONS'
 export const PENDING_STOP = 'PENDING_STOP'
 export const WAITING_LAST_ITERATION = 'WAITING_LAST_ITERATION'
+export const INITIALIZE_NET_RENDER = 'INITIALIZE_NET_RENDER'
 
 export const onSimulationStart = () => {
   return {
@@ -36,5 +37,12 @@ export const onWaitingLastIteration = (waitingLastIteration) => {
   return {
     type: WAITING_LAST_ITERATION,
     waitingLastIteration
+  }
+}
+
+export const onInitializeNetRender = () => {
+  return {
+    type: INITIALIZE_NET_RENDER,
+    netRender: true
   }
 }

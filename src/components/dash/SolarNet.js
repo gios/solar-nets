@@ -101,6 +101,9 @@ class SolarNet extends Component {
       link(transitionT6, pinnacleSellingSolarEnergy),
       link(transitionT6, pinnacleP5)
     ])
+
+    // Waiting for fully render graph
+    this.props.onInitializeNetRender()
   }
 
   componentWillUnmount() {
@@ -161,18 +164,23 @@ class SolarNet extends Component {
   }
 
   render() {
-    let { simulation, iterations, waitingLastIteration } = this.props
+    let { simulation, iterations, waitingLastIteration, netRender } = this.props
     return (
       <div className='text-xs-center'>
         <h5 className='iterations-counter'>
           Iterations: <span className='label label-default'>{iterations}</span>
         </h5>
         <div id='solar-petri-net'></div>
-        <NetControls simulation={simulation}
-                     waitingLastIteration={waitingLastIteration}
-                     startInfinityTransition={this.startInfinityTransition.bind(this)}
-                     startTransitionOnce={this.startTransitionOnce.bind(this)}
-                     stopTransition={this.stopTransition.bind(this)}/>
+        {netRender && <NetControls simulation={simulation}
+                                   waitingLastIteration={waitingLastIteration}
+                                   graph={this.graph}
+                                   consumerTransition={transitionT3}
+                                   solarStationTransition={transitionT1}
+                                   electroStationTransition={transitionT2}
+                                   startInfinityTransition={this.startInfinityTransition.bind(this)}
+                                   startTransitionOnce={this.startTransitionOnce.bind(this)}
+                                   stopTransition={this.stopTransition.bind(this)}/>
+        }
       </div>
     )
   }

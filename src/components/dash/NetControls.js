@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { getConsumerValue, getSolarStationValue, getElectroStationValue } from './linkConnections'
 
 class NetControls extends Component {
   render() {
-    let { simulation, waitingLastIteration } = this.props
+    let { simulation, waitingLastIteration, graph } = this.props
+    let { consumerTransition, solarStationTransition, electroStationTransition } = this.props
     return (
       <div className='card-group'>
         <div className='card'>
@@ -26,17 +28,29 @@ class NetControls extends Component {
           <form className='m-x-1'>
             <fieldset className='form-group'>
               <label for='InputNeeds'>Needs</label>
-              <input type='text' className='form-control' id='InputNeeds' placeholder='Enter needs'/>
+              <input type='text'
+                     className='form-control'
+                     id='InputNeeds'
+                     placeholder='Enter needs'
+                     defaultValue={getConsumerValue(graph, consumerTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
             </fieldset>
             <fieldset className='form-group'>
               <label for='InputSolarStation'>Solar Station Power</label>
-              <input type='text' className='form-control' id='InputSolarStation' placeholder='Enter solar station power'/>
+              <input type='text'
+                     className='form-control'
+                     id='InputSolarStation'
+                     placeholder='Enter solar station power'
+                     defaultValue={getSolarStationValue(graph, solarStationTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
             </fieldset>
             <fieldset className='form-group'>
               <label for='InputElectroStation'>Electro Station Power</label>
-              <input type='text' className='form-control' id='InputElectroStation' placeholder='Enter electro station power'/>
+              <input type='text'
+                     className='form-control'
+                     id='InputElectroStation'
+                     placeholder='Enter electro station power'
+                     defaultValue={getElectroStationValue(graph, electroStationTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
             </fieldset>
           </form>

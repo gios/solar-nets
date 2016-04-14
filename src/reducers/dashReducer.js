@@ -1,11 +1,17 @@
 import Immutable from 'immutable'
-import { SIMULATION_START, SIMULATION_STOP, ADD_ITERATIONS, PENDING_STOP, WAITING_LAST_ITERATION } from '../actions/dashActions'
+import { SIMULATION_START,
+         SIMULATION_STOP,
+         ADD_ITERATIONS,
+         PENDING_STOP,
+         WAITING_LAST_ITERATION,
+         INITIALIZE_NET_RENDER } from '../actions/dashActions'
 
 const dashState = Immutable.Map({
   simulation: false,
   iterations: 0,
   isPendingStop: false,
-  waitingLastIteration: false
+  waitingLastIteration: false,
+  netRender: false
 })
 
 const dash = (state = dashState, action) => {
@@ -29,6 +35,10 @@ const dash = (state = dashState, action) => {
     case WAITING_LAST_ITERATION:
       return state.merge({
         waitingLastIteration: action.waitingLastIteration
+      })
+    case INITIALIZE_NET_RENDER:
+      return state.merge({
+        netRender: action.netRender
       })
     default:
       return state

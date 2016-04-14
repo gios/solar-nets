@@ -48,10 +48,22 @@ export function getLinkValue(link) {
   return parseInt((linkValue) ? linkValue : 1)
 }
 
-export function getLinkValueByPinnacle(graph, pinnacleModel) {
-  let inbound = graph.getConnectedLinks(pinnacleModel, { inbound: true })
+function getLinkByTransition(graph, transition) {
+  let outbound = graph.getConnectedLinks(transition, { outbound: true })
 
-  return _.map(inbound, (link) => {
+  return _.map(outbound, (link) => {
     return getLinkValue(link)
   })
+}
+
+export function getConsumerValue(graph, customerTransition) {
+  return _.last(getLinkByTransition(graph, customerTransition))
+}
+
+export function getSolarStationValue(graph, solarStationTransition) {
+  return _.last(getLinkByTransition(graph, solarStationTransition))
+}
+
+export function getElectroStationValue(graph, electroStationTransition) {
+  return _.last(getLinkByTransition(graph, electroStationTransition))
 }

@@ -26,6 +26,7 @@ import {
   transitionT8
 } from './transitions'
 import fireTransition from './transitionAnimation'
+import NetControls from './NetControls'
 
 class SolarNet extends Component {
 
@@ -107,7 +108,7 @@ class SolarNet extends Component {
     this.paper.remove()
   }
 
-  startInfinityTransition() {
+  startInfinityTransition(stopSimulationRef) {
     let { onAddIterations, onPendingStop } = this.props
     onPendingStop(false)
     this.props.onSimulationStart()
@@ -119,7 +120,7 @@ class SolarNet extends Component {
           onAddIterations(iterations)
         } else {
           this.props.onSimulationStop()
-          this.stopAnimationBtnStop(this.refs.stopSimulation)
+          this.stopAnimationBtnStop(stopSimulationRef)
           onAddIterations(iterations)
         }
       })
@@ -128,7 +129,7 @@ class SolarNet extends Component {
     simulate.call(this, this.graph, this.paper, this.transitions)
   }
 
-  startTransitionOnce() {
+  startTransitionOnce(stopSimulationRef) {
     let { onAddIterations, onPendingStop } = this.props
     onPendingStop(false)
     this.props.onSimulationStart()
@@ -136,7 +137,7 @@ class SolarNet extends Component {
     function simulate(graph, paper, transitions) {
       fireTransition(graph, paper, transitions, (iterations) => {
         this.props.onSimulationStop()
-        this.stopAnimationBtnStop(this.refs.stopSimulation)
+        this.stopAnimationBtnStop(stopSimulationRef)
         onAddIterations(iterations)
       })
     }
@@ -144,8 +145,8 @@ class SolarNet extends Component {
     simulate.call(this, this.graph, this.paper, this.transitions)
   }
 
-  stopTransition() {
-    this.startAnimationBtnStop(this.refs.stopSimulation)
+  stopTransition(stopSimulationRef) {
+    this.startAnimationBtnStop(stopSimulationRef)
     this.props.onPendingStop(true)
   }
 
@@ -167,19 +168,11 @@ class SolarNet extends Component {
           Iterations: <span className='label label-default'>{iterations}</span>
         </h5>
         <div id='solar-petri-net'></div>
-        <button onClick={this.startTransitionOnce.bind(this)}
-                type='button'
-                className='btn btn-primary m-x-1'
-                disabled={simulation}>Start Simulation</button>
-        <button onClick={this.startInfinityTransition.bind(this)}
-                type='button'
-                className='btn btn-primary m-x-1'
-                disabled={simulation}>Start Infinity Simulation</button>
-        <button onClick={this.stopTransition.bind(this)}
-                type='button'
-                ref='stopSimulation'
-                className='btn btn-danger m-x-1'
-                disabled={!simulation || waitingLastIteration}>Stop Simulation</button>
+        <NetControls simulation={simulation}
+                     waitingLastIteration={waitingLastIteration}
+                     startInfinityTransition={this.startInfinityTransition.bind(this)}
+                     startTransitionOnce={this.startTransitionOnce.bind(this)}
+                     stopTransition={this.stopTransition.bind(this)}/>
       </div>
     )
   }

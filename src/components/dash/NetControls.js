@@ -80,6 +80,7 @@ class NetControls extends Component {
                      className='form-control'
                      id='InputNeeds'
                      placeholder='Enter needs'
+                     disabled={simulation}
                      onChange={this.onChangeNeeds.bind(this)}
                      defaultValue={getConsumerValue(graph, consumerTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 9999.</small>
@@ -92,6 +93,7 @@ class NetControls extends Component {
                      className='form-control'
                      id='InputSolarStation'
                      placeholder='Enter solar station power'
+                     disabled={simulation}
                      onChange={this.onChangeSolarStation.bind(this)}
                      defaultValue={getSolarStationValue(graph, solarStationTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 9999.</small>
@@ -104,6 +106,7 @@ class NetControls extends Component {
                      className='form-control'
                      id='InputElectroStation'
                      placeholder='Enter electro station power'
+                     disabled={simulation}
                      onChange={this.onChangeElectroStation.bind(this)}
                      defaultValue={getElectroStationValue(graph, electroStationTransition)}/>
               <small className='text-muted'>Enter numeric value in diapason from 1 to 9999.</small>

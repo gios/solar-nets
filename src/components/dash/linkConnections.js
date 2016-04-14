@@ -49,7 +49,7 @@ export function getLinkValue(link) {
 }
 
 function setLinkValue(link, value) {
-  link.get('labels')[0].attrs.text.text = value
+  link.label(0, { attrs: { text: { text: value} } })
 }
 
 function getLinkByTransition(graph, transition) {

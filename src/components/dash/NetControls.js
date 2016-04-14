@@ -11,19 +11,41 @@ class NetControls extends Component {
   onChangeNeeds(e) {
     let { graph, consumerTransition } = this.props
     let value = e.target.value
-    setConsumerValue(graph, consumerTransition, value)
+
+    if(this.validateValues(value)) {
+      setConsumerValue(graph, consumerTransition, value)
+    } else {
+      e.target.value = 1
+    }
   }
 
   onChangeSolarStation(e) {
     let { graph, solarStationTransition } = this.props
     let value = e.target.value
-    setSolarStationValue(graph, solarStationTransition, value)
+
+    if(this.validateValues(value)) {
+      setSolarStationValue(graph, solarStationTransition, value)
+    } else {
+      e.target.value = 1
+    }
   }
 
   onChangeElectroStation(e) {
     let { graph, electroStationTransition } = this.props
     let value = e.target.value
-    setElectroStationValue(graph, electroStationTransition, value)
+
+    if(this.validateValues(value)) {
+      setElectroStationValue(graph, electroStationTransition, value)
+    } else {
+      e.target.value = 1
+    }
+  }
+
+  validateValues(value) {
+    if(/^\d{1,4}$/g.test(value)) {
+      return true
+    }
+    return false
   }
 
   render() {
@@ -52,33 +74,39 @@ class NetControls extends Component {
           <form className='m-x-1'>
             <fieldset className='form-group'>
               <label for='InputNeeds'>Needs</label>
-              <input type='text'
+              <input type='number'
+                     min='1'
+                     max='9999'
                      className='form-control'
                      id='InputNeeds'
                      placeholder='Enter needs'
                      onChange={this.onChangeNeeds.bind(this)}
                      defaultValue={getConsumerValue(graph, consumerTransition)}/>
-              <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
+              <small className='text-muted'>Enter numeric value in diapason from 1 to 9999.</small>
             </fieldset>
             <fieldset className='form-group'>
               <label for='InputSolarStation'>Solar Station Power</label>
-              <input type='text'
+              <input type='number'
+                     min='1'
+                     max='9999'
                      className='form-control'
                      id='InputSolarStation'
                      placeholder='Enter solar station power'
                      onChange={this.onChangeSolarStation.bind(this)}
                      defaultValue={getSolarStationValue(graph, solarStationTransition)}/>
-              <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
+              <small className='text-muted'>Enter numeric value in diapason from 1 to 9999.</small>
             </fieldset>
             <fieldset className='form-group'>
               <label for='InputElectroStation'>Electro Station Power</label>
-              <input type='text'
+              <input type='number'
+                     min='1'
+                     max='9999'
                      className='form-control'
                      id='InputElectroStation'
                      placeholder='Enter electro station power'
                      onChange={this.onChangeElectroStation.bind(this)}
                      defaultValue={getElectroStationValue(graph, electroStationTransition)}/>
-              <small className='text-muted'>Enter numeric value in diapason from 1 to 5000.</small>
+              <small className='text-muted'>Enter numeric value in diapason from 1 to 9999.</small>
             </fieldset>
           </form>
         </div>

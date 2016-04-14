@@ -47,3 +47,11 @@ export function getLinkValue(link) {
   let linkValue = link.get('labels')[0].attrs.text.text
   return parseInt((linkValue) ? linkValue : 1)
 }
+
+export function getLinkValueByPinnacle(graph, pinnacleModel) {
+  let inbound = graph.getConnectedLinks(pinnacleModel, { inbound: true })
+
+  return _.map(inbound, (link) => {
+    return getLinkValue(link)
+  })
+}

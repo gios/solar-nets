@@ -40,9 +40,9 @@ export const onWaitingLastIteration = (waitingLastIteration) => {
   }
 }
 
-export const onInitializeNetRender = () => {
+export const onInitializeNetRender = (netRender) => {
   return {
     type: INITIALIZE_NET_RENDER,
-    netRender: true
+    netRender
   }
 }

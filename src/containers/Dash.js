@@ -24,7 +24,7 @@ class Dash extends Component {
                   onAddIterations={(value) => dispatch(onAddIterations(value))}
                   onPendingStop={(value) => dispatch(onPendingStop(value))}
                   onWaitingLastIteration={(value) => dispatch(onWaitingLastIteration(value))}
-                  onInitializeNetRender={() => dispatch(onInitializeNetRender())}/>
+                  onInitializeNetRender={(value) => dispatch(onInitializeNetRender(value))}/>
       </div>
     )
   }

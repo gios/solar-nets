@@ -103,10 +103,11 @@ class SolarNet extends Component {
     ])
 
     // Waiting for fully render graph
-    this.props.onInitializeNetRender()
+    this.props.onInitializeNetRender(true)
   }
 
   componentWillUnmount() {
+    this.props.onInitializeNetRender(false)
     this.graph.clear()
     this.paper.remove()
   }

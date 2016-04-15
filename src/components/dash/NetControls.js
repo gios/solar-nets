@@ -41,6 +41,11 @@ class NetControls extends Component {
     }
   }
 
+  onChangeNetDuration(e) {
+    let value = e.target.value
+    this.props.onGlobalDuration(parseInt(value))
+  }
+
   validateValues(value) {
     if(/^\d{1,4}$/g.test(value)) {
       return true
@@ -49,7 +54,7 @@ class NetControls extends Component {
   }
 
   render() {
-    let { simulation, waitingLastIteration, graph } = this.props
+    let { simulation, waitingLastIteration, graph, globalDuration } = this.props
     let { consumerTransition, solarStationTransition, electroStationTransition } = this.props
     return (
       <div className='card-group'>
@@ -115,6 +120,21 @@ class NetControls extends Component {
         </div>
         <div className='card'>
           <h4 className='card-title m-t-1'>Other Settings</h4>
+          <form className='m-x-1'>
+            <fieldset className='form-group'>
+              <label for='RangeDuration'>Duration: {globalDuration}</label>
+              <input type='range'
+                     min='0'
+                     max='30'
+                     step='1'
+                     className='form-control'
+                     id='RangeDuration'
+                     disabled={simulation}
+                     onChange={this.onChangeNetDuration.bind(this)}
+                     defaultValue={globalDuration}/>
+              <small className='text-muted'>Enter duration value for stations in diapason from 1 to 30.</small>
+            </fieldset>
+          </form>
         </div>
       </div>
     )

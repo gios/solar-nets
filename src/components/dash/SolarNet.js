@@ -165,7 +165,7 @@ class SolarNet extends Component {
   }
 
   render() {
-    let { simulation, iterations, waitingLastIteration, netRender } = this.props
+    let { simulation, iterations, waitingLastIteration, netRender, globalDuration, onGlobalDuration } = this.props
     return (
       <div className='text-xs-center'>
         <h5 className='iterations-counter'>
@@ -178,6 +178,8 @@ class SolarNet extends Component {
                                    consumerTransition={transitionT3}
                                    solarStationTransition={transitionT1}
                                    electroStationTransition={transitionT2}
+                                   globalDuration={globalDuration}
+                                   onGlobalDuration={onGlobalDuration}
                                    startInfinityTransition={this.startInfinityTransition.bind(this)}
                                    startTransitionOnce={this.startTransitionOnce.bind(this)}
                                    stopTransition={this.stopTransition.bind(this)}/>

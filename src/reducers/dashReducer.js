@@ -4,14 +4,16 @@ import { SIMULATION_START,
          ADD_ITERATIONS,
          PENDING_STOP,
          WAITING_LAST_ITERATION,
-         INITIALIZE_NET_RENDER } from '../actions/dashActions'
+         INITIALIZE_NET_RENDER,
+         GLOBAL_DURATION } from '../actions/dashActions'
 
 const dashState = Immutable.Map({
   simulation: false,
   iterations: 0,
   isPendingStop: false,
   waitingLastIteration: false,
-  netRender: false
+  netRender: false,
+  globalDuration: 5
 })
 
 const dash = (state = dashState, action) => {
@@ -39,6 +41,10 @@ const dash = (state = dashState, action) => {
     case INITIALIZE_NET_RENDER:
       return state.merge({
         netRender: action.netRender
+      })
+    case GLOBAL_DURATION:
+      return state.merge({
+        globalDuration: action.globalDuration
       })
     default:
       return state

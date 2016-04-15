@@ -15,7 +15,7 @@ class NetControls extends Component {
     if(this.validateValues(value)) {
       setConsumerValue(graph, consumerTransition, value)
     } else {
-      e.target.value = 1
+      e.target.value = value.slice(0, 4)
     }
   }
 
@@ -26,7 +26,7 @@ class NetControls extends Component {
     if(this.validateValues(value)) {
       setSolarStationValue(graph, solarStationTransition, value)
     } else {
-      e.target.value = 1
+      e.target.value = value.slice(0, 4)
     }
   }
 
@@ -37,7 +37,7 @@ class NetControls extends Component {
     if(this.validateValues(value)) {
       setElectroStationValue(graph, electroStationTransition, value)
     } else {
-      e.target.value = 1
+      e.target.value = value.slice(0, 4)
     }
   }
 

@@ -2,7 +2,6 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { createStore, compose } from 'redux'
 
 // Routing
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
@@ -23,10 +22,7 @@ window.Tether = Tether
 require('bootstrap')
 
 // Store
-import solarNets from './reducers'
-const store = createStore(solarNets, compose(
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-))
+import store from './store'
 
 render(
   <Provider store={store}>

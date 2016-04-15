@@ -5,11 +5,12 @@ import { setBaseTransition, getBaseTransition, getTimeTransition } from './trans
 const dottedLink = '2,5'
 let transitionFireCount = 0
 
-export default function fireTransition(graph, paper, transitions, callback) {
+export default function fireTransition(graph, paper, transitions, globalDuration, callback) {
   let finishDelay = []
   let firableTransition = getFirableTransitionsCount(graph, paper, transitions)
+
   _.each(transitions, (transition) => {
-    fireTransitionOnce(graph, paper, transition, getTimeTransition(transition), (name) => {
+    fireTransitionOnce(graph, paper, transition, getTimeTransition(transition), globalDuration, (name) => {
       if(firableTransition === finishDelay.length) {
         transitionFireCount += 1
         callback(transitionFireCount)
@@ -20,7 +21,7 @@ export default function fireTransition(graph, paper, transitions, callback) {
   })
 }
 
-function fireTransitionOnce(graph, paper, transition, sec, callback) {
+function fireTransitionOnce(graph, paper, transition, sec, globalDuration, callback) {
   let inbound = graph.getConnectedLinks(transition, { inbound: true })
   let outbound = graph.getConnectedLinks(transition, { outbound: true })
 
@@ -52,7 +53,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       if(linked.attr('.connection/stroke-dasharray') !== dottedLink) {
         if(pinnacleModel.get('tokens') >= getLinkValue(linked)) {
           setBaseTransition(transition, getBaseTransition(transition) + (inbound.length) ? 1 : 0)
-          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / 5)
+          paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / (30 / globalDuration))
 
           _.defer(() => {
             if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
@@ -84,7 +85,7 @@ function fireTransitionOnce(graph, paper, transition, sec, callback) {
       })
 
       if(getBaseTransition(transition) > 0) {
-        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / 5, () => {
+        paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / (30 / globalDuration), () => {
           if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
             pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))
           } else {

@@ -1,2 +1,2 @@
-export const VERSION = '1.2.1'
+export const VERSION = 'Alpha 1.2.15'
 export const MOBILE_MAX_WIDTH = 1376

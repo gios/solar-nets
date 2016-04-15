@@ -117,7 +117,7 @@ class Sidebar extends Component {
             </li>
           </ul>
           <div className='navbar-footer'>
-            <span className='label label-success text-xs-center'>Alpha v{VERSION}</span>
+            <span className='label label-success text-xs-center'>{VERSION}</span>
             <p>Pavlo Blazhchuk &copy; 2016</p>
           </div>
         </nav>

@@ -124,9 +124,8 @@ class NetControls extends Component {
             <fieldset className='form-group'>
               <label for='RangeDuration'>Duration: {globalDuration}</label>
               <input type='range'
-                     min='0'
+                     min='1'
                      max='30'
-                     step='1'
                      className='form-control'
                      id='RangeDuration'
                      disabled={simulation}

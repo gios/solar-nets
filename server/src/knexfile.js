@@ -1,25 +1,12 @@
 module.exports = {
-  staging: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
+  debug: true,
+  pool: {
+    min: 1,
+    max: 7
   },
-
-  production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
+  migrations: {
+    tableName: 'knex_migrations'
   }
 }

@@ -11,7 +11,18 @@ module.exports = function(router) {
     let soldSolarEnergy = this.request.body.soldSolarEnergy
     let needs = this.request.body.needs
 
-    console.log(consumedSolarEnergy, consumedElectroEnergy, electroEnergy, solarEnergy, soldSolarEnergy, needs)
-    this.body = 'hello'
+    let insertNetId = yield knex('history')
+      .returning('id')
+      .insert({
+        consumed_solar_energy: consumedSolarEnergy,
+        consumed_electro_energy: consumedElectroEnergy,
+        electro_energy: electroEnergy,
+        solar_energy: solarEnergy,
+        sold_solar_energy: soldSolarEnergy,
+        needs: needs,
+        price: soldSolarEnergy * 0.27
+      })
+
+    this.body = { id: insertNetId[0] }
   })
 }

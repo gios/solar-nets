@@ -6,14 +6,14 @@ exports.up = function(knex, Promise) {
       if(!exists) {
         return knex.schema.createTableIfNotExists('history', (table) => {
           table.increments()
-          table.integer('Consumed Solar Energy')
-          table.integer('Consumed Electro Energy')
-          table.integer('Electro Energy')
-          table.integer('Solar Energy')
-          table.integer('Sold Solar Energy')
-          table.integer('Needs')
-          table.integer('Price')
-          table.timestamps()
+          table.integer('consumed_solar_energy')
+          table.integer('consumed_electro_energy')
+          table.integer('electro_energy')
+          table.integer('solar_energy')
+          table.integer('sold_solar_energy')
+          table.integer('needs')
+          table.integer('price')
+          table.timestamp('created_at').defaultTo(knex.fn.now())
         })
         .then(() => logger.info('history table has been created'))
       }

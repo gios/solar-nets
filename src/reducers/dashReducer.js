@@ -5,7 +5,10 @@ import { SIMULATION_START,
          PENDING_STOP,
          WAITING_LAST_ITERATION,
          INITIALIZE_NET_RENDER,
-         GLOBAL_DURATION } from '../actions/dashActions'
+         GLOBAL_DURATION,
+         REQUEST_SAVE_NET,
+         SUCCESS_SAVE_NET,
+         FAILURE_SAVE_NET } from '../actions/dashActions'
 
 const dashState = Immutable.Map({
   simulation: false,
@@ -16,7 +19,13 @@ const dashState = Immutable.Map({
   globalDuration: 5
 })
 
-const dash = (state = dashState, action) => {
+const dashSaveState = Immutable.Map({
+  isFetching: false,
+  payload: null,
+  error: false
+})
+
+export const dash = (state = dashState, action) => {
   switch (action.type) {
     case SIMULATION_START:
       return state.merge({
@@ -51,4 +60,27 @@ const dash = (state = dashState, action) => {
   }
 }
 
-export default dash
+export const dashSave = (state = dashSaveState, action) => {
+  switch (action.type) {
+    case REQUEST_SAVE_NET:
+      return state.merge({
+        isFetching: true,
+        payload: null,
+        error: false
+      })
+    case SUCCESS_SAVE_NET:
+      return state.merge({
+        isFetching: false,
+        payload: action.payload,
+        error: false
+      })
+    case FAILURE_SAVE_NET:
+      return state.merge({
+        isFetching: false,
+        payload: action.payload.response,
+        error: true
+      })
+    default:
+      return state
+  }
+}

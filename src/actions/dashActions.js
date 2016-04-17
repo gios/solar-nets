@@ -1,3 +1,5 @@
+import { CALL_API } from 'redux-api-middleware'
+
 export const SIMULATION_START = 'SIMULATION_START'
 export const SIMULATION_STOP = 'SIMULATION_STOP'
 export const ADD_ITERATIONS = 'ADD_ITERATIONS'
@@ -5,6 +7,10 @@ export const PENDING_STOP = 'PENDING_STOP'
 export const WAITING_LAST_ITERATION = 'WAITING_LAST_ITERATION'
 export const INITIALIZE_NET_RENDER = 'INITIALIZE_NET_RENDER'
 export const GLOBAL_DURATION = 'GLOBAL_DURATION'
+
+export const REQUEST_SAVE_NET = 'REQUEST_SAVE_NET'
+export const SUCCESS_SAVE_NET = 'SUCCESS_SAVE_NET'
+export const FAILURE_SAVE_NET = 'FAILURE_SAVE_NET'
 
 export const onSimulationStart = () => {
   return {
@@ -52,5 +58,19 @@ export const onGlobalDuration = (globalDuration) => {
   return {
     type: GLOBAL_DURATION,
     globalDuration
+  }
+}
+
+export function onSaveNet(data) {
+  return {
+    [CALL_API]: {
+      endpoint: '/api/save_net',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      types: [REQUEST_SAVE_NET, SUCCESS_SAVE_NET, FAILURE_SAVE_NET],
+      body: JSON.stringify(data)
+    }
   }
 }

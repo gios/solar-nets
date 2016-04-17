@@ -106,6 +106,19 @@ class SolarNet extends Component {
     this.props.onInitializeNetRender(true)
   }
 
+  componentWillReceiveProps(nextProps) {
+    let consumedSolarEnergyValue = pinnacleConsumedSolarEnergy.get('tokens')
+    let consumedElectroEnergyValue = pinnacleConsumedElectroEnergy.get('tokens')
+    let electroEnergyValue = pinnacleElectroEnergy.get('tokens')
+    let solarEnergyValue = pinnacleSolarEnergy.get('tokens')
+    let soldSolarEnergyValue = pinnacleSoldSolarEnergy.get('tokens')
+    let needsValue = pinnacleNeeds.get('tokens')
+
+    if(nextProps.iterations > this.props.iterations) {
+      // TODO: Send to server
+    }
+  }
+
   componentWillUnmount() {
     this.props.onInitializeNetRender(false)
     this.graph.clear()

@@ -31,4 +31,10 @@ module.exports = function(router) {
 
     this.body = getNet
   })
+
+  router.del('/delete_net', function *() {
+    let getNet = yield knex('history').delete('*')
+
+    this.body = getNet
+  })
 }

@@ -11,7 +11,10 @@ import { SIMULATION_START,
          FAILURE_SAVE_NET,
          REQUEST_GET_NET,
          SUCCESS_GET_NET,
-         FAILURE_GET_NET } from '../actions/dashActions'
+         FAILURE_GET_NET,
+         REQUEST_DELETE_NET,
+         SUCCESS_DELETE_NET,
+         FAILURE_DELETE_NET } from '../actions/dashActions'
 
 const dashState = Immutable.Map({
   simulation: false,
@@ -103,6 +106,31 @@ export const dashGet = (state = dashLoadState, action) => {
         error: false
       })
     case FAILURE_GET_NET:
+      return state.merge({
+        isFetching: false,
+        payload: action.payload.response,
+        error: true
+      })
+    default:
+      return state
+  }
+}
+
+export const dashDelete = (state = dashLoadState, action) => {
+  switch (action.type) {
+    case REQUEST_DELETE_NET:
+      return state.merge({
+        isFetching: true,
+        payload: null,
+        error: false
+      })
+    case SUCCESS_DELETE_NET:
+      return state.merge({
+        isFetching: false,
+        payload: action.payload,
+        error: false
+      })
+    case FAILURE_DELETE_NET:
       return state.merge({
         isFetching: false,
         payload: action.payload.response,

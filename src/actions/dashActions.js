@@ -16,6 +16,10 @@ export const REQUEST_GET_NET = 'REQUEST_GET_NET'
 export const SUCCESS_GET_NET = 'SUCCESS_GET_NET'
 export const FAILURE_GET_NET = 'FAILURE_GET_NET'
 
+export const REQUEST_DELETE_NET = 'REQUEST_DELETE_NET'
+export const SUCCESS_DELETE_NET = 'SUCCESS_DELETE_NET'
+export const FAILURE_DELETE_NET = 'FAILURE_DELETE_NET'
+
 export const onSimulationStart = () => {
   return {
     type: SIMULATION_START,
@@ -85,6 +89,16 @@ export function onGetNet() {
       endpoint: '/api/get_net',
       method: 'GET',
       types: [REQUEST_GET_NET, SUCCESS_GET_NET, FAILURE_GET_NET]
+    }
+  }
+}
+
+export function onDeleteNet() {
+  return {
+    [CALL_API]: {
+      endpoint: '/api/delete_net',
+      method: 'DELETE',
+      types: [REQUEST_DELETE_NET, SUCCESS_DELETE_NET, FAILURE_DELETE_NET]
     }
   }
 }

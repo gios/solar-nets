@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { onGetNet } from '../actions/dashActions'
+import { onGetNet, onDeleteNet } from '../actions/dashActions'
 import AnalyzeTable from '../components/analyze/AnalyzeTable'
 
 class Analyze extends Component {
 
   render() {
-    let { dispatch, dashGet } = this.props
+    let { dispatch, dashGet, dashDelete } = this.props
 
     return (
       <div className='col-md-12'>
         <AnalyzeTable dashGet={dashGet}
+                      dashDelete={dashDelete}
+                      onDeleteNet={() => dispatch(onDeleteNet())}
                       onGetNet={() => dispatch(onGetNet())}/>
       </div>
     )
@@ -19,7 +21,8 @@ class Analyze extends Component {
 
 function injector(state) {
   return {
-    dashGet: state.dashGet.toJS()
+    dashGet: state.dashGet.toJS(),
+    dashDelete: state.dashDelete.toJS()
   }
 }
 

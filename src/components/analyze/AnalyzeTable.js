@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import Loader from '../others/Loader'
 
 class AnalyzeTable extends Component {
 
@@ -10,6 +9,13 @@ class AnalyzeTable extends Component {
 
   componentWillMount() {
     this.props.onGetNet()
+  }
+
+  clickDeleteNet() {
+    this.props.onDeleteNet().then((status) => {
+      if(status.error) return
+      this.props.onGetNet()
+    })
   }
 
   renderAnalyzeTable() {
@@ -40,7 +46,6 @@ class AnalyzeTable extends Component {
   render() {
     return (
       <div>
-        {this.props.dashGet.isFetching && <Loader size={4}/>}
         <table className='table'>
           <thead className='thead-inverse'>
             <tr>
@@ -59,6 +64,11 @@ class AnalyzeTable extends Component {
             {this.renderAnalyzeTable()}
           </tbody>
         </table>
+        <button type='button'
+                className='btn btn-danger'
+                disabled={this.props.dashDelete.isFetching}
+                hidden={(this.props.dashGet.payload && this.props.dashGet.payload.length < 1) ? true : false}
+                onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>
       </div>
     )
   }

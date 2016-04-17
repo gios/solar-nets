@@ -10,6 +10,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import App from './containers/App'
 import Dash from './containers/Dash'
 import About from './containers/About'
+import Analyze from './containers/Analyze'
 
 // Styles (SCSS)
 import './index.scss'
@@ -30,6 +31,7 @@ render(
       <Route path='/' component={App}>
         <IndexRoute component={Dash}/>
         <Route path='about' component={About}/>
+        <Route path='analyze' component={Analyze}/>
       </Route>
     </Router>
   </Provider>,

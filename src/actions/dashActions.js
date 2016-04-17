@@ -12,6 +12,10 @@ export const REQUEST_SAVE_NET = 'REQUEST_SAVE_NET'
 export const SUCCESS_SAVE_NET = 'SUCCESS_SAVE_NET'
 export const FAILURE_SAVE_NET = 'FAILURE_SAVE_NET'
 
+export const REQUEST_GET_NET = 'REQUEST_GET_NET'
+export const SUCCESS_GET_NET = 'SUCCESS_GET_NET'
+export const FAILURE_GET_NET = 'FAILURE_GET_NET'
+
 export const onSimulationStart = () => {
   return {
     type: SIMULATION_START,
@@ -71,6 +75,16 @@ export function onSaveNet(data) {
       },
       types: [REQUEST_SAVE_NET, SUCCESS_SAVE_NET, FAILURE_SAVE_NET],
       body: JSON.stringify(data)
+    }
+  }
+}
+
+export function onGetNet() {
+  return {
+    [CALL_API]: {
+      endpoint: '/api/get_net',
+      method: 'GET',
+      types: [REQUEST_GET_NET, SUCCESS_GET_NET, FAILURE_GET_NET]
     }
   }
 }

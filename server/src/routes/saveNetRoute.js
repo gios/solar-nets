@@ -25,4 +25,10 @@ module.exports = function(router) {
 
     this.body = { id: insertNetId[0] }
   })
+
+  router.get('/get_net', function *() {
+    let getNet = yield knex('history').select('*')
+
+    this.body = getNet
+  })
 }

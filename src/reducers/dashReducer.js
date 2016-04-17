@@ -8,7 +8,10 @@ import { SIMULATION_START,
          GLOBAL_DURATION,
          REQUEST_SAVE_NET,
          SUCCESS_SAVE_NET,
-         FAILURE_SAVE_NET } from '../actions/dashActions'
+         FAILURE_SAVE_NET,
+         REQUEST_GET_NET,
+         SUCCESS_GET_NET,
+         FAILURE_GET_NET } from '../actions/dashActions'
 
 const dashState = Immutable.Map({
   simulation: false,
@@ -19,7 +22,7 @@ const dashState = Immutable.Map({
   globalDuration: 5
 })
 
-const dashSaveState = Immutable.Map({
+const dashLoadState = Immutable.Map({
   isFetching: false,
   payload: null,
   error: false
@@ -60,7 +63,7 @@ export const dash = (state = dashState, action) => {
   }
 }
 
-export const dashSave = (state = dashSaveState, action) => {
+export const dashSave = (state = dashLoadState, action) => {
   switch (action.type) {
     case REQUEST_SAVE_NET:
       return state.merge({
@@ -75,6 +78,31 @@ export const dashSave = (state = dashSaveState, action) => {
         error: false
       })
     case FAILURE_SAVE_NET:
+      return state.merge({
+        isFetching: false,
+        payload: action.payload.response,
+        error: true
+      })
+    default:
+      return state
+  }
+}
+
+export const dashGet = (state = dashLoadState, action) => {
+  switch (action.type) {
+    case REQUEST_GET_NET:
+      return state.merge({
+        isFetching: true,
+        payload: null,
+        error: false
+      })
+    case SUCCESS_GET_NET:
+      return state.merge({
+        isFetching: false,
+        payload: action.payload,
+        error: false
+      })
+    case FAILURE_GET_NET:
       return state.merge({
         isFetching: false,
         payload: action.payload.response,

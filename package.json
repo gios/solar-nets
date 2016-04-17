@@ -49,6 +49,7 @@
     "react-router": "^2.0.0",
     "redux": "^3.4.0",
     "redux-api-middleware": "^1.0.1",
+    "redux-thunk": "^2.0.1",
     "tether": "^1.1.1",
     "tracer": "^0.8.3"
   },

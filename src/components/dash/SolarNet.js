@@ -107,15 +107,22 @@ class SolarNet extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let consumedSolarEnergyValue = pinnacleConsumedSolarEnergy.get('tokens')
-    let consumedElectroEnergyValue = pinnacleConsumedElectroEnergy.get('tokens')
-    let electroEnergyValue = pinnacleElectroEnergy.get('tokens')
-    let solarEnergyValue = pinnacleSolarEnergy.get('tokens')
-    let soldSolarEnergyValue = pinnacleSoldSolarEnergy.get('tokens')
-    let needsValue = pinnacleNeeds.get('tokens')
+    let consumedSolarEnergy = pinnacleConsumedSolarEnergy.get('tokens')
+    let consumedElectroEnergy = pinnacleConsumedElectroEnergy.get('tokens')
+    let electroEnergy = pinnacleElectroEnergy.get('tokens')
+    let solarEnergy = pinnacleSolarEnergy.get('tokens')
+    let soldSolarEnergy = pinnacleSoldSolarEnergy.get('tokens')
+    let needs = pinnacleNeeds.get('tokens')
 
     if(nextProps.iterations > this.props.iterations) {
-      // TODO: Send to server
+      this.props.onSaveNet({
+        consumedSolarEnergy,
+        consumedElectroEnergy,
+        electroEnergy,
+        solarEnergy,
+        soldSolarEnergy,
+        needs
+      })
     }
   }
 

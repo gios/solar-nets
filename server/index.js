@@ -2,7 +2,7 @@
 
 const path = require('path')
 const app = require('koa')()
-const router = require('koa-router')()
+const router = require('koa-router')({ prefix: '/api' })
 const serve = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const logger = require('koa-logger')
@@ -41,7 +41,7 @@ app.use(router.routes())
 app.use(router.allowedMethods())
 
 // Routes
-require('./src/routes/testRoute.js')(router)
+require('./src/routes/saveNetRoute.js')(router)
 
 app.listen(process.env.PORT || 5000)
 tracer.info('Solar Nets is running on port', process.env.PORT || 5000)

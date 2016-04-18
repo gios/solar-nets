@@ -66,17 +66,12 @@ function fireTransitionOnce(graph, paper, transition, sec, globalDuration, callb
 
     // Check connected condition state
     let differenceTokenValue
-    let successTransition = _.every(placesBefore, (pinnacleModel) => {
-      return pinnacleModel.get('tokens') > 0
-    })
 
     if(getFilteredLinkCount(placesBefore, inbound) > 1) {
-      if(successTransition) {
-        differenceTokenValue = _.min(_.invoke(placesBefore, 'get', 'tokens'))
-        _.each(placesBefore, (pinnacleModel) => {
-          pinnacleModel.set('tokens', pinnacleModel.get('tokens') - differenceTokenValue)
-        })
-      }
+      differenceTokenValue = _.min(_.invoke(placesBefore, 'get', 'tokens'))
+      _.each(placesBefore, (pinnacleModel) => {
+        pinnacleModel.set('tokens', pinnacleModel.get('tokens') - differenceTokenValue)
+      })
     }
 
     _.each(placesAfter, (pinnacleModel) => {
@@ -84,7 +79,7 @@ function fireTransitionOnce(graph, paper, transition, sec, globalDuration, callb
         return link.get('target').id === pinnacleModel.id
       })
 
-      if(getBaseTransition(transition) > 0) {
+      if(getBaseTransition(transition) > 0 && differenceTokenValue !== 0) {
         paper.findViewByModel(linked).sendToken(V('circle', { r: 5, fill: '#feb662' }).node, (sec * 1000) / (30 / globalDuration), () => {
           if(getFilteredLinkCount(placesBefore, inbound) <= 1) {
             pinnacleModel.set('tokens', pinnacleModel.get('tokens') + getLinkValue(linked))

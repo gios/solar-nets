@@ -13,3 +13,13 @@
   position: absolute;
   margin: 1em;
 }
+
+.point-status {
+  display: inline-block;
+  margin-left: 1em;
+  width: .5em;
+  height: .5em;
+  background-color: darken(#d9534f, 10%);
+  border-radius: 100%;
+  box-shadow: 0 0 .4em darken(#d9534f, 10%);
+}

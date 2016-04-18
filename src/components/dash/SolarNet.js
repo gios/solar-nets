@@ -189,7 +189,8 @@ class SolarNet extends Component {
     return (
       <div className='text-xs-center'>
         <h5 className='iterations-counter'>
-          Iterations: <span className='label label-default'>{iterations}</span>
+          Iterations: <span className='label label-default'>{iterations}</span><br/>
+          Writing: <div className='point-status'></div>
         </h5>
         <div id='solar-petri-net'></div>
         {netRender && <NetControls simulation={simulation}

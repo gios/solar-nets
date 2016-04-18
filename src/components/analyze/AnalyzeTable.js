@@ -27,13 +27,13 @@ class AnalyzeTable extends Component {
         return (
           <tr key={item.id}>
             <th scope='row'>{item.id}</th>
-            <td>{item.consumed_electro_energy}</td>
-            <td>{item.consumed_solar_energy}</td>
-            <td>{item.electro_energy}</td>
             <td>{item.needs}</td>
-            <td>{item.price}</td>
+            <td>{item.consumed_solar_energy}</td>
+            <td>{item.consumed_electro_energy}</td>
             <td>{item.solar_energy}</td>
+            <td>{item.electro_energy}</td>
             <td>{item.sold_solar_energy}</td>
+            <td>{item.price}</td>
             <td>{moment(item.created_at).format('D MMM YYYY HH:mm:ss')}</td>
           </tr>
         )
@@ -50,13 +50,13 @@ class AnalyzeTable extends Component {
           <thead className='thead-inverse'>
             <tr>
               <th>#</th>
-              <th>Consumed Electro Energy</th>
-              <th>Consumed Solar Energy</th>
-              <th>Electro Energy</th>
               <th>Needs</th>
-              <th>Price</th>
+              <th>Consumed Solar Energy</th>
+              <th>Consumed Electro Energy</th>
               <th>Solar Energy</th>
+              <th>Electro Energy</th>
               <th>Sold Solar Energy</th>
+              <th>Price</th>
               <th>Created Date</th>
             </tr>
           </thead>

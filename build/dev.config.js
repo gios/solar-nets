@@ -38,6 +38,7 @@ module.exports = {
     filename: 'bundle.js',
     port: 8080,
     host: '0.0.0.0',
+    historyApiFallback: true,
     proxy: {
       '/api/*': 'http://localhost:5000'
     }

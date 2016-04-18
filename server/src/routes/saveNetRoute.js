@@ -11,6 +11,8 @@ module.exports = function(router) {
     let soldSolarEnergy = this.request.body.soldSolarEnergy
     let needs = this.request.body.needs
 
+    const greenPrice = 0.27
+
     let insertNetId = yield knex('history')
       .returning('id')
       .insert({
@@ -20,7 +22,7 @@ module.exports = function(router) {
         solar_energy: solarEnergy,
         sold_solar_energy: soldSolarEnergy,
         needs: needs,
-        price: soldSolarEnergy * 0.27
+        price: parseInt((soldSolarEnergy * greenPrice).toFixed(0))
       })
 
     this.body = { id: insertNetId[0] }

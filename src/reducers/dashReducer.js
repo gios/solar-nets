@@ -66,21 +66,22 @@ export const dash = (state = dashState, action) => {
   }
 }
 
-export const dashSave = (state = dashLoadState, action) => {
+function dashInit(state, action, ...types) {
+  let [REQUEST, SUCCESS, FAILURE] = types
   switch (action.type) {
-    case REQUEST_SAVE_NET:
+    case REQUEST:
       return state.merge({
         isFetching: true,
         payload: null,
         error: false
       })
-    case SUCCESS_SAVE_NET:
+    case SUCCESS:
       return state.merge({
         isFetching: false,
         payload: action.payload,
         error: false
       })
-    case FAILURE_SAVE_NET:
+    case FAILURE:
       return state.merge({
         isFetching: false,
         payload: action.payload.response,
@@ -91,52 +92,14 @@ export const dashSave = (state = dashLoadState, action) => {
   }
 }
 
-export const dashGet = (state = dashLoadState, action) => {
-  switch (action.type) {
-    case REQUEST_GET_NET:
-      return state.merge({
-        isFetching: true,
-        payload: null,
-        error: false
-      })
-    case SUCCESS_GET_NET:
-      return state.merge({
-        isFetching: false,
-        payload: action.payload,
-        error: false
-      })
-    case FAILURE_GET_NET:
-      return state.merge({
-        isFetching: false,
-        payload: action.payload.response,
-        error: true
-      })
-    default:
-      return state
-  }
+export function dashSave(state = dashLoadState, action) {
+  return dashInit(state, action, REQUEST_SAVE_NET, SUCCESS_SAVE_NET, FAILURE_SAVE_NET)
 }
 
-export const dashDelete = (state = dashLoadState, action) => {
-  switch (action.type) {
-    case REQUEST_DELETE_NET:
-      return state.merge({
-        isFetching: true,
-        payload: null,
-        error: false
-      })
-    case SUCCESS_DELETE_NET:
-      return state.merge({
-        isFetching: false,
-        payload: action.payload,
-        error: false
-      })
-    case FAILURE_DELETE_NET:
-      return state.merge({
-        isFetching: false,
-        payload: action.payload.response,
-        error: true
-      })
-    default:
-      return state
-  }
+export function dashGet(state = dashLoadState, action) {
+  return dashInit(state, action, REQUEST_GET_NET, SUCCESS_GET_NET, FAILURE_GET_NET)
+}
+
+export function dashDelete(state = dashLoadState, action) {
+  return dashInit(state, action, REQUEST_DELETE_NET, SUCCESS_DELETE_NET, FAILURE_DELETE_NET)
 }

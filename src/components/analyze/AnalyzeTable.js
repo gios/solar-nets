@@ -65,7 +65,7 @@ class AnalyzeTable extends Component {
           </tbody>
         </table>
         <button type='button'
-                className='btn btn-danger'
+                className='btn btn-danger m-b-1'
                 disabled={this.props.dashDelete.isFetching}
                 hidden={(this.props.dashGet.payload && this.props.dashGet.payload.length < 1) ? true : false}
                 onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>

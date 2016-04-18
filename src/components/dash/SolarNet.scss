@@ -2,11 +2,11 @@
 .marker-arrowhead,
 .link-tools,
 .marker-vertices {
-  display: none
+  display: none;
 }
 
-.element.basic.Rect {
-  cursor: auto
+.element {
+  cursor: auto;
 }
 
 .iterations-counter {

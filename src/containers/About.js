@@ -1,14 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import AboutCard from '../components/about/AboutCard'
 
 class About extends Component {
 
   render() {
     return (
       <div className='col-md-12'>
-        Pavlo Blazhchuk CS-41
+        <AboutCard/>
       </div>
     )
   }
 }
 
-export default About
+function injector(state) {
+  return state
+}
+
+export default connect(injector)(About)

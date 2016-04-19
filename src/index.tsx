@@ -1,5 +1,5 @@
 // React, Redux
-import React from 'react'
+import * as React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
@@ -20,7 +20,7 @@ import $ from 'jquery'
 import Tether from 'tether'
 window.$ = window.jQuery = $
 window.Tether = Tether
-require('bootstrap')
+// require('bootstrap')
 
 // Store
 import store from './store'

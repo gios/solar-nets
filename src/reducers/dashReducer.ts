@@ -1,4 +1,4 @@
-import Immutable from 'immutable'
+import * as Immutable from 'immutable'
 import { SIMULATION_START,
          SIMULATION_STOP,
          ADD_ITERATIONS,

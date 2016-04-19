@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import { onGetNet, onDeleteNet } from '../actions/dashActions'
 import AnalyzeTable from '../components/analyze/AnalyzeTable'
 
-class Analyze extends Component {
+class Analyze extends React.Component {
 
   render() {
     let { dispatch, dashGet, dashDelete } = this.props

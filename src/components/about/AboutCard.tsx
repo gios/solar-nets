@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 
-class AboutCard extends Component {
+class AboutCard extends React.Component {
 
   constructor(props) {
     super(props)

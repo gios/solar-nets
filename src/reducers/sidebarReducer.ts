@@ -1,4 +1,4 @@
-import Immutable from 'immutable'
+import * as Immutable from 'immutable'
 import { MOBILE_MAX_WIDTH } from '../constants'
 import { TOGGLE_SIDEBAR, MOBILE_SIDEBAR } from '../actions/sidebarActions'
 

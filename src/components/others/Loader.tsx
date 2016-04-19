@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 
-class Loader extends Component {
+class Loader extends React.Component {
 
   render() {
     let { size } = this.props

@@ -1,4 +1,4 @@
-import joint from 'jointjs'
+import * as joint from 'jointjs'
 
 // Rendering pinnacles
 

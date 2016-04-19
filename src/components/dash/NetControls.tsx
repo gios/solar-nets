@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { setConsumerValue,
          getConsumerValue,
          setSolarStationValue,
@@ -6,7 +6,7 @@ import { setConsumerValue,
          setElectroStationValue,
          getElectroStationValue } from './linkConnections'
 
-class NetControls extends Component {
+class NetControls extends React.Component {
 
   onChangeNeeds(e) {
     let { graph, consumerTransition } = this.props

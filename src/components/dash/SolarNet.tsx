@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import joint from 'jointjs'
+import * as React from 'react'
+import * as joint from 'jointjs'
+import * as $ from 'jquery'
 import {
   pinnacleConsumer,
   pinnacleNeeds,
@@ -28,7 +29,7 @@ import {
 import fireTransition from './transitionAnimation'
 import NetControls from './NetControls'
 
-class SolarNet extends Component {
+class SolarNet extends React.Component {
 
   constructor(props) {
     super(props)

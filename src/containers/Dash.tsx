@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import SolarNet from '../components/dash/SolarNet'
 import { onSimulationStart,
@@ -10,7 +10,7 @@ import { onSimulationStart,
          onGlobalDuration,
          onSaveNet } from '../actions/dashActions'
 
-class Dash extends Component {
+class Dash extends React.Component {
 
   render() {
     let { dispatch, simulation, iterations, isPendingStop, waitingLastIteration, netRender, globalDuration, netSave } = this.props

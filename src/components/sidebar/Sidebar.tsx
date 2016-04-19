@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { Link } from 'react-router'
 import { NotificationManager } from 'react-notifications';
 import { throttle } from '../../utils/helpers'
 import { MOBILE_MAX_WIDTH, VERSION } from '../../constants'
 
-class Sidebar extends Component {
+class Sidebar extends React.Component {
 
   constructor(props) {
     super(props)

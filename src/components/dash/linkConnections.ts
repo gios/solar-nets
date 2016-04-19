@@ -1,4 +1,4 @@
-import joint from 'jointjs'
+import * as joint from 'jointjs'
 
 // Link function for binding pinnacles and transitions
 

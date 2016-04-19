@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import AboutCard from '../components/about/AboutCard'
 
-class About extends Component {
+class About extends React.Component {
 
   render() {
     return (

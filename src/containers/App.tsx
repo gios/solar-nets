@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
-import React, { Component } from 'react'
+import * as React from 'react'
 import Sidebar from '../components/sidebar/Sidebar'
 import { onToggleSidebar, onMobileSidebar } from '../actions/sidebarActions'
 import { NotificationContainer } from 'react-notifications'
 
-class App extends Component {
+class App extends React.Component {
 
   render() {
     let { dispatch, simulation, currentRoute, isToggled, isMobileView } = this.props

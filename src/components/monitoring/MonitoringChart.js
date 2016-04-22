@@ -39,6 +39,7 @@ class MonitoringChart extends Component {
 
           if((key !== 'created_at') && (key !== 'id')) {
             let randomColorString = randomRGBA()
+
             chartData.datasets.push({
               label: _.startCase(key),
               fillColor: randomColorString(0.5),

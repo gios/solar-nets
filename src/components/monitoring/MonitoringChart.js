@@ -11,16 +11,7 @@ class MonitoringChart extends Component {
   }
 
   renderMonitoringChart() {
-    let MonitoringChartRender, chartData = {}
-    let tmpChartStore = {
-      consumed_electro_energy: [],
-      consumed_solar_energy: [],
-      electro_energy: [],
-      needs: [],
-      price: [],
-      solar_energy: [],
-      sold_solar_energy: []
-    }
+    let MonitoringChartRender, tmpChartStore = {}, chartData = {}
     let { dashGet } = this.props
 
     chartData.labels = [
@@ -41,8 +32,8 @@ class MonitoringChart extends Component {
         chartData.labels.push(index + 1)
 
         for(let value in item) {
-          console.log(tmpChartStore, typeof value, value)
-          tmpChartStore[value].push(item[value])
+          if(_.isUndefined(tmpChartStore[value])) tmpChartStore[value] = []
+          if (_.isObject(tmpChartStore[value])) tmpChartStore[value].push(item[value])
         }
       })
 

@@ -1,38 +1,63 @@
 import React, { Component } from 'react'
-import { Line } from 'react-chartjs'
+import Chart from 'chart.js'
+import { Bar } from 'react-chartjs'
+
+Chart.defaults.global.responsive = true
 
 class MonitoringChart extends Component {
 
-  render() {
-    var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
-        datasets: [
-            {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "My Second dataset",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
-            }
-        ]
-    };
+  componentWillMount() {
+    this.props.onGetNet()
+  }
 
+  renderMonitoringChart() {
+    let MonitoringChartRender, chartData = {}
+    let tmpChartStore = {
+      consumed_electro_energy: [],
+      consumed_solar_energy: [],
+      electro_energy: [],
+      needs: [],
+      price: [],
+      solar_energy: [],
+      sold_solar_energy: []
+    }
+    let { dashGet } = this.props
+
+    chartData.labels = [
+      '#',
+      'Needs',
+      'Consumed Solar Energy',
+      'Consumed Electro Energy',
+      'Solar Energy',
+      'Electro Energy',
+      'Sold Solar Energy',
+      'Price',
+      'Created Date'
+    ]
+    chartData.datasets = []
+
+    if(dashGet.payload) {
+      dashGet.payload.map((item, index) => {
+        chartData.labels.push(index + 1)
+
+        for(let value in item) {
+          console.log(tmpChartStore, typeof value, value)
+          tmpChartStore[value].push(item[value])
+        }
+      })
+
+      console.log(tmpChartStore)
+
+      MonitoringChartRender = <Bar data={chartData}/>
+    }
+
+    return MonitoringChartRender
+  }
+
+  render() {
     return (
       <div>Hello Monitoring!
-        <Line data={data}/>
+        {this.renderMonitoringChart()}
       </div>
     )
   }

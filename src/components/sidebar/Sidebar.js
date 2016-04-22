@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { NotificationManager } from 'react-notifications';
+import { NotificationManager } from 'react-notifications'
 import { throttle } from '../../utils/helpers'
 import { MOBILE_MAX_WIDTH, VERSION } from '../../constants'
 

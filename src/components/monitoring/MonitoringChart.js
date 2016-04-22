@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import Chart from 'chart.js'
 import { Bar } from 'react-chartjs'
+import { NotificationManager } from 'react-notifications';
+import { CHART_INTERVAL_LIMIT } from '../../constants'
 
 Chart.defaults.global.responsive = true
 
@@ -9,8 +11,8 @@ class MonitoringChart extends Component {
 
   componentWillMount() {
     this.props.onGetNet({
-      start: 0,
-      end: 10
+      start: this.props.startInterval,
+      end: this.props.endInterval
     })
   }
 
@@ -65,11 +67,56 @@ class MonitoringChart extends Component {
     return MonitoringChartRender
   }
 
+  previousChartInterval(e) {
+    e.preventDefault()
+    let { startInterval, endInterval } = this.props
+
+    if(startInterval === 0 && endInterval <= CHART_INTERVAL_LIMIT) {
+      NotificationManager.warning('You can only move forward', 'Move forward' , 10000)
+    } else {
+      this.props.onChartInterval(startInterval - CHART_INTERVAL_LIMIT, endInterval - CHART_INTERVAL_LIMIT).then((action) => {
+        this.props.onGetNet({
+          start: action.startInterval,
+          end: action.endInterval
+        })
+      })
+    }
+  }
+
+  nextChartInterval(e) {
+    e.preventDefault()
+    let { startInterval, endInterval } = this.props
+    this.props.onChartInterval(startInterval + CHART_INTERVAL_LIMIT, endInterval + CHART_INTERVAL_LIMIT).then((action) => {
+      this.props.onGetNet({
+        start: action.startInterval,
+        end: action.endInterval
+      })
+    })
+  }
+
   render() {
+    let { startInterval, endInterval } = this.props
+
     return (
       <div>
         {this.renderMonitoringChart()}
-        <div dangerouslySetInnerHTML={{ __html: this.props.legendHtml }}></div>
+        <div className='card-deck'>
+          <div className='card'>
+            <div className='chart-legend' dangerouslySetInnerHTML={{ __html: this.props.legendHtml }}></div>
+          </div>
+          <div className='card'>
+            <div className='chart-pagination'>
+              <h4 className='card-title text-xs-center'>Next Chart</h4>
+              <nav>
+                <ul className='pager'>
+                  <li><a href='javascript:void(0)' onClick={this.previousChartInterval.bind(this)}>Previous</a></li>
+                  <li className='m-x-1'>{`${startInterval} - ${endInterval}`}</li>
+                  <li><a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

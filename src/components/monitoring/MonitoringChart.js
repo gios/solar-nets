@@ -31,13 +31,19 @@ class MonitoringChart extends Component {
       for (let key in tmpChartStore) {
         if (tmpChartStore.hasOwnProperty(key)) {
           let element = tmpChartStore[key]
+          let randomRGBA = () => {
+            let randomColorRGBA = `rgba(${(Math.floor(Math.random() * 256))}, ${(Math.floor(Math.random() * 256))}, ${(Math.floor(Math.random() * 256))}, alpha)`
+
+            return (alpha) => randomColorRGBA.replace('alpha', alpha)
+          }
 
           if((key !== 'created_at') && (key !== 'id')) {
+            let randomColorString = randomRGBA()
             chartData.datasets.push({
               label: _.startCase(key),
-              fillColor: 'rgba(220, 220, 220, 0.5)',
+              fillColor: randomColorString(0.5),
               strokeColor: 'rgba(220, 220, 220, 0.8)',
-              highlightFill: 'rgba(220, 220, 220, 0.75)',
+              highlightFill: randomColorString(0.75),
               highlightStroke: 'rgba(220, 220, 220, 1)',
               data: element
             })

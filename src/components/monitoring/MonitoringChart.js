@@ -8,7 +8,10 @@ Chart.defaults.global.responsive = true
 class MonitoringChart extends Component {
 
   componentWillMount() {
-    this.props.onGetNet()
+    this.props.onGetNet({
+      start: 0,
+      end: 10
+    })
   }
 
   renderMonitoringChart() {

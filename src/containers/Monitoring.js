@@ -13,7 +13,7 @@ class Monitoring extends Component {
       <div className='col-md-12'>
         <MonitoringChart dashGet={dashGet}
                          legendHtml={legendHtml}
-                         onGetNet={() => dispatch(onGetNet())}
+                         onGetNet={options => dispatch(onGetNet(options))}
                          onChartLegend={html => dispatch(onChartLegend(html))}/>
       </div>
     )

@@ -2,16 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import MonitoringChart from '../components/monitoring/MonitoringChart'
 import { onGetNet } from '../actions/dashActions'
+import { onChartLegend } from '../actions/monitoringActions'
 
 class Monitoring extends Component {
 
   render() {
-    let { dispatch, dashGet } = this.props
+    let { dispatch, dashGet, legendHtml } = this.props
 
     return (
       <div className='col-md-12'>
         <MonitoringChart dashGet={dashGet}
-                         onGetNet={() => dispatch(onGetNet())}/>
+                         legendHtml={legendHtml}
+                         onGetNet={() => dispatch(onGetNet())}
+                         onChartLegend={html => dispatch(onChartLegend(html))}/>
       </div>
     )
   }
@@ -19,7 +22,8 @@ class Monitoring extends Component {
 
 function injector(state) {
   return {
-    dashGet: state.dashGet.toJS()
+    dashGet: state.dashGet.toJS(),
+    legendHtml: state.monitoring.get('legendHtml')
   }
 }
 

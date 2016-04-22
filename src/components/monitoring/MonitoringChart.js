@@ -35,17 +35,20 @@ class MonitoringChart extends Component {
           if((key !== 'created_at') && (key !== 'id')) {
             chartData.datasets.push({
               label: _.startCase(key),
-              fillColor: 'rgba(220,220,220,0.5)',
-              strokeColor: 'rgba(220,220,220,0.8)',
-              highlightFill: 'rgba(220,220,220,0.75)',
-              highlightStroke: 'rgba(220,220,220,1)',
+              fillColor: 'rgba(220, 220, 220, 0.5)',
+              strokeColor: 'rgba(220, 220, 220, 0.8)',
+              highlightFill: 'rgba(220, 220, 220, 0.75)',
+              highlightStroke: 'rgba(220, 220, 220, 1)',
               data: element
             })
           }
         }
       }
 
-      MonitoringChartRender = <Bar data={chartData}/>
+      MonitoringChartRender = <Bar data={chartData} ref='chart'/>
+      _.defer(() => {
+        this.props.onChartLegend(this.refs.chart.getChart().generateLegend())
+      })
     }
 
     return MonitoringChartRender
@@ -53,8 +56,9 @@ class MonitoringChart extends Component {
 
   render() {
     return (
-      <div>Hello Monitoring!
+      <div>
         {this.renderMonitoringChart()}
+        <div dangerouslySetInnerHTML={{ __html: this.props.legendHtml }}></div>
       </div>
     )
   }

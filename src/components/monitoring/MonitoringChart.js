@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import moment from 'moment'
 import Chart from 'chart.js'
 import { Bar } from 'react-chartjs'
 
@@ -14,30 +15,35 @@ class MonitoringChart extends Component {
     let MonitoringChartRender, tmpChartStore = {}, chartData = {}
     let { dashGet } = this.props
 
-    chartData.labels = [
-      '#',
-      'Needs',
-      'Consumed Solar Energy',
-      'Consumed Electro Energy',
-      'Solar Energy',
-      'Electro Energy',
-      'Sold Solar Energy',
-      'Price',
-      'Created Date'
-    ]
+    chartData.labels = []
     chartData.datasets = []
 
     if(dashGet.payload) {
-      dashGet.payload.map((item, index) => {
-        chartData.labels.push(index + 1)
+      dashGet.payload.map((item) => {
+        chartData.labels.push(moment(item.created_at).format('D MMM YYYY HH:mm:ss'))
 
-        for(let value in item) {
-          if(_.isUndefined(tmpChartStore[value])) tmpChartStore[value] = []
-          if (_.isObject(tmpChartStore[value])) tmpChartStore[value].push(item[value])
+        for(let key in item) {
+          if(_.isUndefined(tmpChartStore[key])) tmpChartStore[key] = []
+          if (_.isObject(tmpChartStore[key])) tmpChartStore[key].push(item[key])
         }
       })
 
-      console.log(tmpChartStore)
+      for (let key in tmpChartStore) {
+        if (tmpChartStore.hasOwnProperty(key)) {
+          let element = tmpChartStore[key]
+
+          if((key !== 'created_at') && (key !== 'id')) {
+            chartData.datasets.push({
+              label: _.startCase(key),
+              fillColor: 'rgba(220,220,220,0.5)',
+              strokeColor: 'rgba(220,220,220,0.8)',
+              highlightFill: 'rgba(220,220,220,0.75)',
+              highlightStroke: 'rgba(220,220,220,1)',
+              data: element
+            })
+          }
+        }
+      }
 
       MonitoringChartRender = <Bar data={chartData}/>
     }

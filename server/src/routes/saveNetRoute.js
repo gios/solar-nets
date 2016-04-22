@@ -31,8 +31,7 @@ module.exports = function(router) {
   router.post('/get_net', function *() {
     let start = this.request.body.start
     let end = this.request.body.end
-    console.log(start, end)
-    let getNet = yield knex('history').select('*')
+    let getNet = yield knex('history').select('*').limit(end - start).offset(start)
 
     this.body = getNet
   })

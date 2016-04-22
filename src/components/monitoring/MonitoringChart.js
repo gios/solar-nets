@@ -53,7 +53,8 @@ class MonitoringChart extends Component {
 
       MonitoringChartRender = <Bar data={chartData} ref='chart'/>
       _.defer(() => {
-        this.props.onChartLegend(this.refs.chart.getChart().generateLegend())
+        let generatedLegendHtml = !_.isUndefined(this.refs.chart) ? this.refs.chart.getChart().generateLegend() : ''
+        this.props.onChartLegend(generatedLegendHtml)
       })
     }
 

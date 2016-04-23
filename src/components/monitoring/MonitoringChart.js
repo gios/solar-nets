@@ -29,7 +29,7 @@ class MonitoringChart extends Component {
 
         for(let key in item) {
           if(_.isUndefined(tmpChartStore[key])) tmpChartStore[key] = []
-          if (_.isObject(tmpChartStore[key])) tmpChartStore[key].push(item[key])
+          if(_.isObject(tmpChartStore[key])) tmpChartStore[key].push(item[key])
         }
       })
 

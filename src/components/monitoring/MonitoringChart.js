@@ -82,6 +82,12 @@ class MonitoringChart extends Component {
         this.props.onGetNet({
           start: action.startInterval,
           end: action.endInterval
+        }).then((status) => {
+          if(status.payload.length < CHART_INTERVAL_LIMIT) {
+            this.props.onChartForward(false)
+          } else {
+            this.props.onChartForward(true)
+          }
         })
       })
     }
@@ -89,17 +95,32 @@ class MonitoringChart extends Component {
 
   nextChartInterval(e) {
     e.preventDefault()
-    let { startInterval, endInterval } = this.props
-    this.props.onChartInterval(startInterval + CHART_INTERVAL_LIMIT, endInterval + CHART_INTERVAL_LIMIT).then((action) => {
-      this.props.onGetNet({
-        start: action.startInterval,
-        end: action.endInterval
+    let { startInterval, endInterval, chartForward } = this.props
+
+    if(chartForward) {
+      this.props.onChartInterval(startInterval + CHART_INTERVAL_LIMIT, endInterval + CHART_INTERVAL_LIMIT).then((action) => {
+        this.props.onGetNet({
+          start: action.startInterval,
+          end: action.endInterval
+        }).then((status) => {
+          if(status.payload.length < CHART_INTERVAL_LIMIT) {
+            this.props.onChartForward(false)
+          } else {
+            this.props.onChartForward(true)
+          }
+        })
       })
-    })
+    } else {
+      NotificationManager.warning('You are staying on the last chart interval', 'Last Interval' , 10000)
+    }
+  }
+
+  disabledPaginationClass(chartForward) {
+    return chartForward ? '' : 'disabled'
   }
 
   render() {
-    let { startInterval, endInterval, chartWidth, chartHeight } = this.props
+    let { startInterval, endInterval, chartWidth, chartHeight, chartForward } = this.props
 
     return (
       <div>
@@ -117,7 +138,7 @@ class MonitoringChart extends Component {
                 <ul className='pager'>
                   <li><a href='javascript:void(0)' onClick={this.previousChartInterval.bind(this)}>Previous</a></li>
                   <li className='m-x-1'>{`${startInterval} - ${endInterval}`}</li>
-                  <li><a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a></li>
+                  <li className={this.disabledPaginationClass(chartForward)}><a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a></li>
                 </ul>
               </nav>
             </div>

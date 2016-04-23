@@ -1,6 +1,7 @@
 export const CHART_LEGEND = 'CHART_LEGEND'
 export const CHART_INTERVAL = 'CHART_INTERVAL'
 export const CHART_PROPORTION = 'CHART_PROPORTION'
+export const CHART_FORWARD = 'CHART_FORWARD'
 
 export function onChartLegend(legendHtml) {
   return {
@@ -22,5 +23,12 @@ export function onChartProportion(chartWidth, chartHeight) {
     type: CHART_PROPORTION,
     chartWidth,
     chartHeight
+  }
+}
+
+export function onChartForward(chartForward) {
+  return {
+    type: CHART_FORWARD,
+    chartForward
   }
 }

@@ -1,12 +1,13 @@
 import Immutable from 'immutable'
-import { CHART_LEGEND, CHART_INTERVAL, CHART_PROPORTION } from '../actions/monitoringActions'
+import { CHART_LEGEND, CHART_INTERVAL, CHART_PROPORTION, CHART_FORWARD } from '../actions/monitoringActions'
 
 const monitoringState = Immutable.Map({
   legendHtml: '',
   startInterval: 0,
-  endInterval: 10,
+  endInterval: 12,
   chartWIdth: 0,
-  chartHeight: 0
+  chartHeight: 0,
+  chartForward: true
 })
 
 function monitoring(state = monitoringState, action) {
@@ -24,6 +25,10 @@ function monitoring(state = monitoringState, action) {
       return state.merge({
         chartWIdth: action.chartWIdth,
         chartHeight: action.chartHeight
+      })
+    case CHART_FORWARD:
+      return state.merge({
+        chartForward: action.chartForward
       })
     default:
       return state

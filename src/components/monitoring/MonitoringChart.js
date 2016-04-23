@@ -59,8 +59,12 @@ class MonitoringChart extends Component {
 
       MonitoringChartRender = <Bar data={chartData} ref='chart'/>
       _.defer(() => {
-        let generatedLegendHtml = !_.isUndefined(this.refs.chart) ? this.refs.chart.getChart().generateLegend() : ''
-        this.props.onChartLegend(generatedLegendHtml)
+        if(this.refs.chart) {
+          let generatedLegendHtml = this.refs.chart.getChart().generateLegend()
+          let { width, height } = this.refs.chart.getChart().chart
+          this.props.onChartProportion(width, height)
+          this.props.onChartLegend(generatedLegendHtml)
+        }
       })
     }
 
@@ -95,11 +99,13 @@ class MonitoringChart extends Component {
   }
 
   render() {
-    let { startInterval, endInterval } = this.props
+    let { startInterval, endInterval, chartWidth, chartHeight } = this.props
 
     return (
       <div>
-        {this.renderMonitoringChart()}
+        <div style={{ width: chartWidth, height: chartHeight }}>
+          {this.renderMonitoringChart()}
+        </div>
         <div className='card-deck'>
           <div className='card'>
             <div className='chart-legend' dangerouslySetInnerHTML={{ __html: this.props.legendHtml }}></div>

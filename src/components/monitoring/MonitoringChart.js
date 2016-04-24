@@ -116,8 +116,12 @@ class MonitoringChart extends Component {
     }
   }
 
-  disabledPaginationClass(chartForward) {
+  disablePaginationClassByForward(chartForward) {
     return chartForward ? '' : 'disabled'
+  }
+
+  disablePaginationClassByInterval(startInterval, endInterval) {
+    return startInterval === 0 && endInterval <= CHART_INTERVAL_LIMIT ? 'disabled' : ''
   }
 
   render() {
@@ -137,9 +141,9 @@ class MonitoringChart extends Component {
               <h4 className='card-title text-xs-center'>Next Chart</h4>
               <nav>
                 <ul className='pager'>
-                  <li><a href='javascript:void(0)' onClick={this.previousChartInterval.bind(this)}>Previous</a></li>
+                  <li className={this.disablePaginationClassByInterval(startInterval, endInterval)}><a href='javascript:void(0)' onClick={this.previousChartInterval.bind(this)}>Previous</a></li>
                   <li className='m-x-1'>{`${startInterval} - ${endInterval}`}</li>
-                  <li className={this.disabledPaginationClass(chartForward)}><a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a></li>
+                  <li className={this.disablePaginationClassByForward(chartForward)}><a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a></li>
                 </ul>
               </nav>
             </div>

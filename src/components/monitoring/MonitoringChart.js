@@ -3,7 +3,7 @@ import moment from 'moment'
 import Chart from 'chart.js'
 import { Bar } from 'react-chartjs'
 import { NotificationManager } from 'react-notifications';
-import { CHART_INTERVAL_LIMIT } from '../../constants'
+import { CHART_INTERVAL_LIMIT, CHART_COLOR_PALETTE } from '../../constants'
 
 Chart.defaults.global.responsive = true
 
@@ -36,9 +36,10 @@ class MonitoringChart extends Component {
       for (let key in tmpChartStore) {
         if (tmpChartStore.hasOwnProperty(key)) {
           let element = tmpChartStore[key]
-          let randomRGBA = () => {
-            let randomColorRGBA = `rgba(${(Math.floor(Math.random() * 256))}, ${(Math.floor(Math.random() * 256))}, ${(Math.floor(Math.random() * 256))}, alpha)`
+          let index = Object.keys(tmpChartStore).indexOf(key)
 
+          let randomRGBA = () => {
+            let randomColorRGBA = CHART_COLOR_PALETTE[index]
             return (alpha) => randomColorRGBA.replace('alpha', alpha)
           }
 

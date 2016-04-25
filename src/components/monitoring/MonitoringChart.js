@@ -88,7 +88,7 @@ class MonitoringChart extends Component {
     let { startInterval, endInterval } = this.props
 
     if(startInterval === 0 && endInterval <= CHART_INTERVAL_LIMIT) {
-      NotificationManager.warning('You can only move forward', 'Move forward' , 10000)
+      NotificationManager.warning('You can only move forward', 'Move forward', 10000)
     } else {
       this.props.onChartInterval(startInterval - CHART_INTERVAL_LIMIT, endInterval - CHART_INTERVAL_LIMIT).then((action) => {
         this.props.onGetNet({
@@ -123,7 +123,7 @@ class MonitoringChart extends Component {
         })
       })
     } else {
-      NotificationManager.warning('You are staying on the last chart interval', 'Last Interval' , 10000)
+      NotificationManager.warning('You are staying on the last chart interval', 'Last Interval', 10000)
     }
   }
 

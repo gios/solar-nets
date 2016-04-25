@@ -5,7 +5,6 @@ const monitoringState = Immutable.Map({
   legendHtml: '',
   startInterval: 0,
   endInterval: 12,
-  chartWIdth: 0,
   chartHeight: 0,
   chartForward: true
 })
@@ -23,7 +22,6 @@ function monitoring(state = monitoringState, action) {
       })
     case CHART_PROPORTION:
       return state.merge({
-        chartWIdth: action.chartWIdth,
         chartHeight: action.chartHeight
       })
     case CHART_FORWARD:

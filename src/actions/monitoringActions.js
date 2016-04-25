@@ -18,10 +18,9 @@ export function onChartInterval(startInterval, endInterval) {
   }
 }
 
-export function onChartProportion(chartWidth, chartHeight) {
+export function onChartProportion(chartHeight) {
   return {
     type: CHART_PROPORTION,
-    chartWidth,
     chartHeight
   }
 }

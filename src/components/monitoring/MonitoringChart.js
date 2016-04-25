@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import moment from 'moment'
 import Chart from 'chart.js'
 import { Bar } from 'react-chartjs'
-import { NotificationManager } from 'react-notifications';
+import Loader from '../others/Loader'
+import { NotificationManager } from 'react-notifications'
 import { CHART_INTERVAL_LIMIT, CHART_COLOR_PALETTE } from '../../constants'
 
 Chart.defaults.global.responsive = true
@@ -62,11 +63,13 @@ class MonitoringChart extends Component {
       _.defer(() => {
         if(this.refs.chart) {
           let generatedLegendHtml = this.refs.chart.getChart().generateLegend()
-          let { width, height } = this.refs.chart.getChart().chart
-          this.props.onChartProportion(width, height)
+          let { height } = this.refs.chart.getChart().chart
+          this.props.onChartProportion(height)
           this.props.onChartLegend(generatedLegendHtml)
         }
       })
+    } else {
+      MonitoringChartRender = <Loader size={5}/>
     }
 
     return MonitoringChartRender
@@ -125,11 +128,11 @@ class MonitoringChart extends Component {
   }
 
   render() {
-    let { startInterval, endInterval, chartWidth, chartHeight, chartForward } = this.props
+    let { startInterval, endInterval, chartHeight, chartForward } = this.props
 
     return (
       <div>
-        <div style={{ width: chartWidth, height: chartHeight }}>
+        <div style={{ height: chartHeight }}>
           {this.renderMonitoringChart()}
         </div>
         <div className='card-deck'>

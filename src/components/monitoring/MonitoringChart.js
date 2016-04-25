@@ -73,7 +73,7 @@ class MonitoringChart extends Component {
           let generatedLegendHtml = this.refs.chart.getChart().generateLegend()
           let { height } = this.refs.chart.getChart().chart
           this.props.onChartProportion(height)
-          this.props.onChartLegend(generatedLegendHtml)
+          !this.props.legendHtml && this.props.onChartLegend(generatedLegendHtml)
         }
       })
     } else {
@@ -136,7 +136,7 @@ class MonitoringChart extends Component {
   }
 
   render() {
-    let { startInterval, endInterval, chartHeight, chartForward } = this.props
+    let { startInterval, endInterval, chartHeight, chartForward, legendHtml } = this.props
 
     return (
       <div>
@@ -145,7 +145,7 @@ class MonitoringChart extends Component {
         </div>
         <div className='card-deck'>
           <div className='card'>
-            <div className='chart-legend' dangerouslySetInnerHTML={{ __html: this.props.legendHtml }}></div>
+            <div className='chart-legend' dangerouslySetInnerHTML={{ __html: legendHtml }}></div>
           </div>
           <div className='card'>
             <div className='chart-pagination'>

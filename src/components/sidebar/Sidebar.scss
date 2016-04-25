@@ -5,7 +5,7 @@
   overflow-y: auto;
   height: 100%;
   width: 270px;
-  transition: .3s margin linear;
+  transition: .3s margin ease-out;
   background: #23232c;
   border-radius: 0;
   padding: 0;
@@ -18,11 +18,11 @@
 @mixin icon-toggle() {
   & > i {
     cursor: pointer;
-    transition: .3s color linear;
+    transition: .3s color ease-out;
 
     &:hover {
       color: lighten(#fff, 20%);
-      transition: .3s color linear;
+      transition: .3s color ease-out;
     }
   }
 }

@@ -4,6 +4,7 @@ import Chart from 'chart.js'
 import { Bar } from 'react-chartjs'
 import Loader from '../others/Loader'
 import { NotificationManager } from 'react-notifications'
+import { throttle } from '../../utils/helpers'
 import { CHART_INTERVAL_LIMIT, CHART_COLOR_PALETTE } from '../../constants'
 
 Chart.defaults.global.responsive = true
@@ -15,6 +16,13 @@ class MonitoringChart extends Component {
       start: this.props.startInterval,
       end: this.props.endInterval
     })
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', throttle(() => {
+      let { height } = this.refs.chart.getChart().chart
+      this.props.onChartProportion(height)
+    }, 200))
   }
 
   renderMonitoringChart() {

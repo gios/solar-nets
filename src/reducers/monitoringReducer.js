@@ -5,7 +5,7 @@ const monitoringState = Immutable.Map({
   legendHtml: '',
   startInterval: 0,
   endInterval: 12,
-  chartHeight: 0,
+  chartHeight: 400,
   chartForward: true
 })
 

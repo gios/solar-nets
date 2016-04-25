@@ -7,16 +7,12 @@ import { onChartLegend, onChartInterval, onChartProportion, onChartForward } fro
 class Monitoring extends Component {
 
   render() {
-    let { dispatch, dashGet, legendHtml, startInterval, endInterval, chartHeight, chartForward } = this.props
+    let { dispatch, dashGet, monitoring } = this.props
 
     return (
       <div className='col-md-12'>
         <MonitoringChart dashGet={dashGet}
-                         legendHtml={legendHtml}
-                         startInterval={startInterval}
-                         endInterval={endInterval}
-                         chartHeight={chartHeight}
-                         chartForward={chartForward}
+                         {...monitoring}
                          onGetNet={options => dispatch(onGetNet(options))}
                          onChartLegend={html => dispatch(onChartLegend(html))}
                          onChartInterval={(startInterval, endInterval) => dispatch(onChartInterval(startInterval, endInterval))}
@@ -30,11 +26,7 @@ class Monitoring extends Component {
 function injector(state) {
   return {
     dashGet: state.dashGet.toJS(),
-    legendHtml: state.monitoring.get('legendHtml'),
-    startInterval: state.monitoring.get('startInterval'),
-    endInterval: state.monitoring.get('endInterval'),
-    chartHeight: state.monitoring.get('chartHeight'),
-    chartForward: state.monitoring.get('chartForward')
+    monitoring: state.monitoring.toJS()
   }
 }
 

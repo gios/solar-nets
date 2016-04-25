@@ -20,8 +20,10 @@ class MonitoringChart extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', throttle(() => {
-      let { height } = this.refs.chart.getChart().chart
-      this.props.onChartProportion(height)
+      if(this.refs.chart) {
+        let { height } = this.refs.chart.getChart().chart
+        this.props.onChartProportion(height)
+      }
     }, 200))
   }
 

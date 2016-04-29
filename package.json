@@ -1,6 +1,6 @@
 {
   "name": "solar-nets",
-  "version": "1.3.21",
+  "version": "1.3.25",
   "description": "Analyze and monitoring solar power via Petri nets",
   "main": "index.js",
   "scripts": {

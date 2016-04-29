@@ -77,6 +77,12 @@ class MonitoringChart extends Component {
           this.props.onChartProportion(height)
           !this.props.legendHtml && this.props.onChartLegend(generatedLegendHtml)
         }
+
+        if(dashGet.payload.length < CHART_INTERVAL_LIMIT) {
+          this.props.onChartForward(false)
+        } else {
+          this.props.onChartForward(true)
+        }
       })
     } else {
       MonitoringChartRender = <Loader size={5}/>
@@ -137,31 +143,54 @@ class MonitoringChart extends Component {
     return startInterval === 0 && endInterval <= CHART_INTERVAL_LIMIT ? 'disabled' : ''
   }
 
-  render() {
-    let { startInterval, endInterval, chartHeight, chartForward, legendHtml } = this.props
+  renderMainMonitoring() {
+    let { startInterval, endInterval, chartHeight, chartForward, legendHtml, dashGet } = this.props
 
-    return (
-      <div>
-        <div style={{ height: chartHeight }}>
-          {this.renderMonitoringChart()}
-        </div>
-        <div className='card-deck'>
-          <div className='card'>
-            <div className='chart-legend' dangerouslySetInnerHTML={{ __html: legendHtml }}></div>
+    if(dashGet.payload) {
+      if(_.isEmpty(dashGet.payload)) {
+        return (
+          <div className='alert alert-warning' role='alert'>
+            <strong>Warning!</strong> You are need to create at least one net iteration
           </div>
-          <div className='card'>
-            <div className='chart-pagination'>
-              <h4 className='card-title text-xs-center'>Next Chart</h4>
-              <nav>
-                <ul className='pager'>
-                  <li className={this.disablePaginationClassByInterval(startInterval, endInterval)}><a href='javascript:void(0)' onClick={this.previousChartInterval.bind(this)}>Previous</a></li>
-                  <li className='m-x-1'>{`${startInterval} - ${endInterval}`}</li>
-                  <li className={this.disablePaginationClassByForward(chartForward)}><a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a></li>
-                </ul>
-              </nav>
+        )
+      }
+      return (
+        <div>
+          <div style={{ height: chartHeight }}>
+            {this.renderMonitoringChart()}
+          </div>
+          <div className='card-deck'>
+            <div className='card'>
+              <div className='chart-legend' dangerouslySetInnerHTML={{ __html: legendHtml }}></div>
+            </div>
+            <div className='card'>
+              <div className='chart-pagination'>
+                <h4 className='card-title text-xs-center'>Next Chart</h4>
+                <nav>
+                  <ul className='pager'>
+                    <li className={this.disablePaginationClassByInterval(startInterval, endInterval)}>
+                      <a href='javascript:void(0)' onClick={this.previousChartInterval.bind(this)}>Previous</a>
+                    </li>
+                    <li className='m-x-1'>{`${startInterval} - ${endInterval}`}</li>
+                    <li className={this.disablePaginationClassByForward(chartForward)}>
+                      <a href='javascript:void(0)' onClick={this.nextChartInterval.bind(this)}>Next</a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
+      )
+    } else {
+      return <Loader size={7}/>
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderMainMonitoring()}
       </div>
     )
   }

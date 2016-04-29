@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { CHART_MAX_INTERVAL } from '../../constants.js'
 
 class AnalyzeTable extends Component {
-
-  constructor(props) {
-    super(props)
-  }
 
   componentWillMount() {
     this.props.onGetNet()
@@ -14,7 +11,10 @@ class AnalyzeTable extends Component {
   clickDeleteNet() {
     this.props.onDeleteNet().then((status) => {
       if(status.error) return
-      this.props.onGetNet()
+      this.props.onGetNet({
+        start: 0,
+        end: CHART_MAX_INTERVAL
+      })
     })
   }
 
@@ -44,6 +44,7 @@ class AnalyzeTable extends Component {
   }
 
   render() {
+    let { dashDelete, dashGet } = this.props
     return (
       <div>
         <table className='table'>
@@ -66,8 +67,8 @@ class AnalyzeTable extends Component {
         </table>
         <button type='button'
                 className='btn btn-danger m-b-1'
-                disabled={this.props.dashDelete.isFetching}
-                hidden={(this.props.dashGet.payload && this.props.dashGet.payload.length < 1) ? true : false}
+                disabled={dashDelete.isFetching}
+                hidden={(dashGet.payload && dashGet.payload.length >= 1) ? false : true}
                 onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>
       </div>
     )

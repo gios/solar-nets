@@ -6,7 +6,10 @@ import Loader from '../others/Loader'
 class AnalyzeTable extends Component {
 
   componentWillMount() {
-    this.props.onGetNet()
+    this.props.onGetNet({
+      start: 0,
+      end: CHART_MAX_INTERVAL
+    })
   }
 
   clickDeleteNet() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { CHART_MAX_INTERVAL } from '../../constants.js'
+import { CHART_MAX_INTERVAL } from '../../constants'
 import Loader from '../others/Loader'
 
 class AnalyzeTable extends Component {

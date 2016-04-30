@@ -83,12 +83,16 @@ export function onSaveNet(data) {
   }
 }
 
-export function onGetNet() {
+export function onGetNet(options) {
   return {
     [CALL_API]: {
       endpoint: '/api/get_net',
-      method: 'GET',
-      types: [REQUEST_GET_NET, SUCCESS_GET_NET, FAILURE_GET_NET]
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      types: [REQUEST_GET_NET, SUCCESS_GET_NET, FAILURE_GET_NET],
+      body: JSON.stringify(options)
     }
   }
 }

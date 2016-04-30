@@ -1,0 +1,18 @@
+.bar-legend {
+  list-style: none;
+
+  .bar-legend-icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-right: 5px;
+  }
+
+  .bar-legend-text {
+    vertical-align: text-bottom;
+  }
+}
+
+.chart-legend, .chart-pagination {
+  margin: 1em;
+}

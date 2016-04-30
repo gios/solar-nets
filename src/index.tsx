@@ -11,6 +11,7 @@ import App from './containers/App'
 import Dash from './containers/Dash'
 import About from './containers/About'
 import Analyze from './containers/Analyze'
+import Monitoring from './containers/Monitoring'
 
 // Styles (SCSS)
 import './index.scss'
@@ -32,6 +33,7 @@ render(
         <IndexRoute component={Dash}/>
         <Route path='about' component={About}/>
         <Route path='analyze' component={Analyze}/>
+        <Route path='monitoring' component={Monitoring}/>
       </Route>
     </Router>
   </Provider>,

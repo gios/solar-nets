@@ -1,0 +1,14 @@
+{
+  "version": false,
+  "dependencies": {},
+  "ambientDependencies": {
+    "jquery": "registry:dt/jquery#1.10.0+20160417213236",
+    "lodash": "registry:dt/lodash#3.10.0+20160330154726",
+    "react": "registry:dt/react#0.14.0+20160423065914",
+    "react-redux": "registry:dt/react-redux#4.4.0+20160501125835",
+    "react-router": "registry:dt/react-router#2.0.0+20160501155536",
+    "redux": "registry:dt/redux#3.3.1+20160326112656",
+    "redux-thunk": "registry:dt/redux-thunk#2.0.1+20160317120654",
+    "tether": "registry:dt/tether#1.1.0+20160316155526"
+  }
+}

@@ -1,4 +1,4 @@
-import Immutable from 'immutable'
+import * as Immutable from 'immutable'
 import { CHART_LEGEND, CHART_INTERVAL, CHART_PROPORTION, CHART_FORWARD } from '../actions/monitoringActions'
 
 const monitoringState = Immutable.Map({

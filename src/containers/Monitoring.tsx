@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { connect } from 'react-redux'
 import MonitoringChart from '../components/monitoring/MonitoringChart'
 import { onGetNet } from '../actions/dashActions'
 import { onChartLegend, onChartInterval, onChartProportion, onChartForward } from '../actions/monitoringActions'
 
-class Monitoring extends Component {
+class Monitoring extends React.Component {
 
   render() {
     let { dispatch, dashGet, monitoring } = this.props

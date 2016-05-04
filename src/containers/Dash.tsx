@@ -13,15 +13,10 @@ import { onSimulationStart,
 class Dash extends React.Component {
 
   render() {
-    let { dispatch, simulation, iterations, isPendingStop, waitingLastIteration, netRender, globalDuration, netSave } = this.props
+    let { dispatch, dash, netSave } = this.props
     return (
       <div className='col-md-12'>
-        <SolarNet simulation={simulation}
-                  iterations={iterations}
-                  isPendingStop={isPendingStop}
-                  waitingLastIteration={waitingLastIteration}
-                  netRender={netRender}
-                  globalDuration={globalDuration}
+        <SolarNet {...dash}
                   netSave={netSave}
                   onSimulationStart={() => dispatch(onSimulationStart())}
                   onSimulationStop={() => dispatch(onSimulationStop())}
@@ -38,12 +33,7 @@ class Dash extends React.Component {
 
 function injector(state) {
   return {
-    simulation: state.dash.get('simulation'),
-    iterations: state.dash.get('iterations'),
-    isPendingStop: state.dash.get('isPendingStop'),
-    waitingLastIteration: state.dash.get('waitingLastIteration'),
-    netRender: state.dash.get('netRender'),
-    globalDuration: state.dash.get('globalDuration'),
+    dash: state.dash.toJS(),
     netSave: state.dashSave.toJS()
   }
 }

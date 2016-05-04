@@ -64,7 +64,6 @@ function fireTransitionOnce(graph, paper, transition, sec, globalDuration, callb
       }
     })
 
-    // Check connected condition state
     let differenceTokenValue
 
     if(getFilteredLinkCount(placesBefore, inbound) > 1) {

@@ -13,7 +13,7 @@ class Analyze extends React.Component {
         <AnalyzeTable dashGet={dashGet}
                       dashDelete={dashDelete}
                       onDeleteNet={() => dispatch(onDeleteNet())}
-                      onGetNet={() => dispatch(onGetNet())}/>
+                      onGetNet={options => dispatch(onGetNet(options))}/>
       </div>
     )
   }

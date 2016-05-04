@@ -28,8 +28,10 @@ module.exports = function(router) {
     this.body = { id: insertNetId[0] }
   })
 
-  router.get('/get_net', function *() {
-    let getNet = yield knex('history').select('*')
+  router.post('/get_net', function *() {
+    let start = this.request.body.start
+    let end = this.request.body.end
+    let getNet = yield knex('history').select('*').limit(end - start).offset(start)
 
     this.body = getNet
   })

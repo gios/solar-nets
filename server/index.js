@@ -40,7 +40,6 @@ app.use(favicon(__dirname + '/../public/favicon.ico'))
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-// Routes
 require('./src/routes/saveNetRoute.js')(router)
 
 app.listen(process.env.PORT || 5000)

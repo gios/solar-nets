@@ -52,33 +52,42 @@ class AnalyzeTable extends Component {
     let renderedAnalytic
 
     if(dashGet.payload) {
-      renderedAnalytic = (
-        <div>
-          <table className='table'>
-            <thead className='thead-inverse'>
-              <tr>
-                <th>#</th>
-                <th>Needs</th>
-                <th>Consumed Solar Energy</th>
-                <th>Consumed Electro Energy</th>
-                <th>Solar Energy</th>
-                <th>Electro Energy</th>
-                <th>Sold Solar Energy</th>
-                <th>Price</th>
-                <th>Created Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.renderAnalyzeTable()}
-            </tbody>
-          </table>
-          <button type='button'
-                  className='btn btn-danger m-b-1'
-                  disabled={dashDelete.isFetching}
-                  hidden={(dashGet.payload && dashGet.payload.nets.length >= 1) ? false : true}
-                  onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>
-        </div>
-      )
+
+      if(dashGet.payload.total) {
+        renderedAnalytic = (
+          <div>
+            <table className='table'>
+              <thead className='thead-inverse'>
+                <tr>
+                  <th>#</th>
+                  <th>Needs</th>
+                  <th>Consumed Solar Energy</th>
+                  <th>Consumed Electro Energy</th>
+                  <th>Solar Energy</th>
+                  <th>Electro Energy</th>
+                  <th>Sold Solar Energy</th>
+                  <th>Price</th>
+                  <th>Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.renderAnalyzeTable()}
+              </tbody>
+            </table>
+            <button type='button'
+                    className='btn btn-danger m-b-1'
+                    disabled={dashDelete.isFetching}
+                    hidden={(dashGet.payload && dashGet.payload.nets.length >= 1) ? false : true}
+                    onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>
+          </div>
+        )
+      } else {
+        renderedAnalytic = (
+          <div className='alert alert-warning' role='alert'>
+            <strong>Warning!</strong> You are need to create at least one net iteration
+          </div>
+        )
+      }
     } else {
       renderedAnalytic = <Loader size={6}/>
     }

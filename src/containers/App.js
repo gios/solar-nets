@@ -4,6 +4,16 @@ import Sidebar from '../components/sidebar/Sidebar'
 import { onToggleSidebar, onMobileSidebar } from '../actions/sidebarActions'
 import { NotificationContainer } from 'react-notifications'
 
+function injector(state, ownProps) {
+  return {
+    simulation: state.dash.get('simulation'),
+    currentRoute: ownProps.location.pathname,
+    isToggled: state.sidebar.get('isToggled'),
+    isMobileView: state.sidebar.get('isMobileView')
+  }
+}
+
+@connect(injector)
 class App extends Component {
 
   render() {
@@ -29,13 +39,4 @@ class App extends Component {
   }
 }
 
-function injector(state, ownProps) {
-  return {
-    simulation: state.dash.get('simulation'),
-    currentRoute: ownProps.location.pathname,
-    isToggled: state.sidebar.get('isToggled'),
-    isMobileView: state.sidebar.get('isMobileView')
-  }
-}
-
-export default connect(injector)(App)
+export default App

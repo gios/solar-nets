@@ -4,6 +4,14 @@ import MonitoringChart from '../components/monitoring/MonitoringChart'
 import { onGetNet } from '../actions/dashActions'
 import { onChartLegend, onChartInterval, onChartProportion, onChartForward } from '../actions/monitoringActions'
 
+function injector(state) {
+  return {
+    dashGet: state.dashGet.toJS(),
+    monitoring: state.monitoring.toJS()
+  }
+}
+
+@connect(injector)
 class Monitoring extends Component {
 
   render() {
@@ -23,11 +31,4 @@ class Monitoring extends Component {
   }
 }
 
-function injector(state) {
-  return {
-    dashGet: state.dashGet.toJS(),
-    monitoring: state.monitoring.toJS()
-  }
-}
-
-export default connect(injector)(Monitoring)
+export default Monitoring

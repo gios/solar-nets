@@ -3,6 +3,14 @@ import { connect } from 'react-redux'
 import { onGetNet, onDeleteNet } from '../actions/dashActions'
 import AnalyzeTable from '../components/analyze/AnalyzeTable'
 
+function injector(state) {
+  return {
+    dashGet: state.dashGet.toJS(),
+    dashDelete: state.dashDelete.toJS()
+  }
+}
+
+@connect(injector)
 class Analyze extends Component {
 
   render() {
@@ -19,11 +27,4 @@ class Analyze extends Component {
   }
 }
 
-function injector(state) {
-  return {
-    dashGet: state.dashGet.toJS(),
-    dashDelete: state.dashDelete.toJS()
-  }
-}
-
-export default connect(injector)(Analyze)
+export default Analyze

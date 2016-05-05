@@ -10,6 +10,14 @@ import { onSimulationStart,
          onGlobalDuration,
          onSaveNet } from '../actions/dashActions'
 
+function injector(state) {
+  return {
+    dash: state.dash.toJS(),
+    netSave: state.dashSave.toJS()
+  }
+}
+
+@connect(injector)
 class Dash extends Component {
 
   render() {
@@ -31,11 +39,4 @@ class Dash extends Component {
   }
 }
 
-function injector(state) {
-  return {
-    dash: state.dash.toJS(),
-    netSave: state.dashSave.toJS()
-  }
-}
-
-export default connect(injector)(Dash)
+export default Dash

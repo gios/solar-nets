@@ -1,6 +1,8 @@
 {
   "version": false,
-  "dependencies": {},
+  "dependencies": {
+    "immutable": "registry:npm/immutable#3.7.6+20160411060006"
+  },
   "ambientDependencies": {
     "jquery": "registry:dt/jquery#1.10.0+20160417213236",
     "lodash": "registry:dt/lodash#3.10.0+20160330154726",

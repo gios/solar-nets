@@ -6,3 +6,4 @@
 /// <reference path="main/ambient/redux-thunk/index.d.ts" />
 /// <reference path="main/ambient/redux/index.d.ts" />
 /// <reference path="main/ambient/tether/index.d.ts" />
+/// <reference path="main/definitions/immutable/index.d.ts" />

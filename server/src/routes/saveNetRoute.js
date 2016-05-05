@@ -31,9 +31,13 @@ module.exports = function(router) {
   router.post('/get_net', function *() {
     let start = this.request.body.start
     let end = this.request.body.end
-    let getNet = yield knex('history').select('*').limit(end - start).offset(start)
+    let getNets = yield knex('history').select('*').limit(end - start).offset(start)
+    let totalNets = yield knex('history').count('id')
 
-    this.body = getNet
+    this.body = {
+      nets: getNets,
+      total: parseInt(totalNets[0].count)
+    }
   })
 
   router.del('/delete_net', function *() {

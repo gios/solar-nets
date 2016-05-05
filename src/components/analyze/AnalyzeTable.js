@@ -27,7 +27,7 @@ class AnalyzeTable extends Component {
     let { dashGet } = this.props
 
     if(dashGet.payload) {
-      AnalyzeTableRender = dashGet.payload.map((item) => {
+      AnalyzeTableRender = dashGet.payload.nets.map((item) => {
         return (
           <tr key={item.id}>
             <th scope='row'>{item.id}</th>
@@ -75,7 +75,7 @@ class AnalyzeTable extends Component {
           <button type='button'
                   className='btn btn-danger m-b-1'
                   disabled={dashDelete.isFetching}
-                  hidden={(dashGet.payload && dashGet.payload.length >= 1) ? false : true}
+                  hidden={(dashGet.payload && dashGet.payload.nets.length >= 1) ? false : true}
                   onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>
         </div>
       )

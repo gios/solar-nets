@@ -35,7 +35,7 @@ class MonitoringChart extends Component {
     chartData.datasets = []
 
     if(dashGet.payload) {
-      dashGet.payload.map((item) => {
+      dashGet.payload.nets.map((item) => {
         chartData.labels.push(moment(item.created_at).format('D MMM YYYY HH:mm:ss'))
 
         for(let key in item) {
@@ -78,7 +78,7 @@ class MonitoringChart extends Component {
           !this.props.legendHtml && this.props.onChartLegend(generatedLegendHtml)
         }
 
-        if(dashGet.payload.length <= CHART_INTERVAL_LIMIT) {
+        if(dashGet.payload.nets.length < CHART_INTERVAL_LIMIT || dashGet.payload.total <= CHART_INTERVAL_LIMIT) {
           this.props.onChartForward(false)
         } else {
           this.props.onChartForward(true)
@@ -146,7 +146,7 @@ class MonitoringChart extends Component {
   render() {
     let { startInterval, endInterval, chartHeight, chartForward, legendHtml, dashGet } = this.props
 
-    if((startInterval === 0) && (dashGet.payload && _.isEmpty(dashGet.payload))) {
+    if((startInterval === 0) && (dashGet.payload && _.isEmpty(dashGet.payload.nets))) {
       return (
         <div className='alert alert-warning' role='alert'>
           <strong>Warning!</strong> You are need to create at least one net iteration

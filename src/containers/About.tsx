@@ -2,6 +2,11 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import AboutCard from '../components/about/AboutCard'
 
+function injector(state) {
+  return state
+}
+
+@connect(injector)
 class About extends React.Component {
 
   render() {
@@ -13,8 +18,4 @@ class About extends React.Component {
   }
 }
 
-function injector(state) {
-  return state
-}
-
-export default connect(injector)(About)
+export default About

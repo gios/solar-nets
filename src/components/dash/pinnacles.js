@@ -1,7 +1,5 @@
 import joint from 'jointjs'
 
-// Rendering pinnacles
-
 const pn = joint.shapes.pn
 
 export let pinnacleConsumer = new pn.Place({

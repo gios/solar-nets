@@ -1,7 +1,5 @@
 import joint from 'jointjs'
 
-// Link function for binding pinnacles and transitions
-
 const pn = joint.shapes.pn
 
 const defaultLinkOptions = {

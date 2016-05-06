@@ -58,7 +58,6 @@ class SolarNet extends Component {
     })
 
     this.graph.addCell([
-      // Pinnacles
       pinnacleConsumer,
       pinnacleNeeds,
       pinnacleConsumedSolarEnergy,
@@ -71,8 +70,6 @@ class SolarNet extends Component {
       pinnacleP7,
       pinnacleP5,
       pinnacleSellingSolarEnergy,
-
-      // Transitions
       this.transitions
     ])
 
@@ -102,7 +99,6 @@ class SolarNet extends Component {
       link(transitionT6, pinnacleP5)
     ])
 
-    // Waiting for fully render graph
     this.props.onInitializeNetRender(true)
   }
 

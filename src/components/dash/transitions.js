@@ -2,8 +2,6 @@ import joint from 'jointjs'
 
 const pn = joint.shapes.pn
 
-// Rendring transitions
-
 export function setBaseTransition(transitionModel, base) {
   transitionModel.attr('.label-base/text', `b = ${base}`)
 }

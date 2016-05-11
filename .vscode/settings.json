@@ -1,5 +1,4 @@
 {
-  "jshint.enable": false,
   "javascript.validate.enable": false,
   "editor.fontFamily": "Hack",
   "editor.tabSize": 2,

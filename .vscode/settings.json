@@ -1,6 +1,4 @@
 {
-  "javascript.validate.enable": false,
-  "editor.fontFamily": "Hack",
   "editor.tabSize": 2,
   "editor.renderWhitespace": true,
   "files.trimTrailingWhitespace": true

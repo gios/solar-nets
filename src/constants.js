@@ -1,4 +1,4 @@
-export const VERSION = 'Beta 1.3.29'
+export const VERSION = 'Beta 1.3.54'
 export const MOBILE_MAX_WIDTH = 1376
 export const CHART_INTERVAL_LIMIT = 12
 export const CHART_MAX_INTERVAL = 10000

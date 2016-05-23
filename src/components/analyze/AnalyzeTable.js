@@ -12,6 +12,12 @@ class AnalyzeTable extends Component {
     })
   }
 
+  componentWillUnmount() {
+    let { onSetDeleteTimer, onDeleteButton } = this.props
+    onDeleteButton(false)
+    onSetDeleteTimer(null)
+  }
+
   clickDeleteNet() {
     this.props.onDeleteNet().then((status) => {
       if(status.error) return
@@ -20,6 +26,22 @@ class AnalyzeTable extends Component {
         end: CHART_MAX_INTERVAL
       })
     })
+  }
+
+  mouseOverDeleteNet() {
+    let { analyze, onSetDeleteTimer, onDeleteButton } = this.props
+    if(!analyze.timerId) {
+      let hiddenDeleteTimer = setTimeout(() => {
+        onDeleteButton(true)
+      }, 2000)
+      onSetDeleteTimer(hiddenDeleteTimer)
+    }
+  }
+
+  mouseLeaveDeleteNet() {
+    let { analyze, onSetDeleteTimer } = this.props
+    clearTimeout(analyze.timerId)
+    onSetDeleteTimer(null)
   }
 
   renderAnalyzeTable() {
@@ -48,7 +70,7 @@ class AnalyzeTable extends Component {
   }
 
   render() {
-    let { dashDelete, dashGet } = this.props
+    let { dashDelete, dashGet, analyze } = this.props
     let renderedAnalytic
 
     if(dashGet.payload) {
@@ -77,8 +99,12 @@ class AnalyzeTable extends Component {
             <button type='button'
                     className='btn btn-danger m-b-1'
                     disabled={dashDelete.isFetching}
-                    hidden={(dashGet.payload && dashGet.payload.nets.length >= 1) ? false : true}
+                    hidden={(dashGet.payload && dashGet.payload.nets.length >= 1 && analyze.activeDeleteButton) ? false : true}
                     onClick={this.clickDeleteNet.bind(this)}>Delete Net Data</button>
+            <div className='hidden-delete m-x-1'
+                 onMouseOver={this.mouseOverDeleteNet.bind(this)}
+                 onMouseLeave={this.mouseLeaveDeleteNet.bind(this)}>
+            </div>
           </div>
         )
       } else {

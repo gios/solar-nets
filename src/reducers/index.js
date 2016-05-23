@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { dash, dashSave, dashGet, dashDelete } from './dashReducer'
 import sidebar from './sidebarReducer'
 import monitoring from './monitoringReducer'
+import analyze from './analyzeReducer'
 
 const solarNets = combineReducers({
   dash,
@@ -9,7 +10,8 @@ const solarNets = combineReducers({
   dashGet,
   dashDelete,
   monitoring,
-  sidebar
+  sidebar,
+  analyze
 })
 
 export default solarNets

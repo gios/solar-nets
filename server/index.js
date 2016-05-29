@@ -43,4 +43,4 @@ app.use(router.allowedMethods())
 require('./src/routes/saveNetRoute.js')(router)
 
 app.listen(process.env.PORT || 5000)
-tracer.info('Solar Nets is running on port', process.env.PORT || 5000)
+tracer.info('Solar Nets is running on port ', process.env.PORT || 5000)

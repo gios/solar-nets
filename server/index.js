@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const path = require('path')
 const app = require('koa')()

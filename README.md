@@ -17,3 +17,4 @@ Analyze and monitoring solar power via Petri Nets.
 * Bootstrap
 * Knex
 * PostgreSQL
+* Moment

@@ -11,6 +11,7 @@ Analyze and monitoring solar power via Petri Nets.
 * React
 * Redux
 * Webpack
+* Chart.js
 * SCSS
 * Babel
 * Koa

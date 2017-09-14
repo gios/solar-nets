@@ -14,9 +14,11 @@ import './index.scss'
 
 import $ from 'jquery'
 import Tether from 'tether'
+import Popper from 'popper.js'
 
 window.$ = window.jQuery = $
 window.Tether = Tether
+window.Popper = Popper
 require('bootstrap')
 
 import store from './store'

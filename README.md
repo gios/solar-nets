@@ -19,3 +19,6 @@ Analyze and monitoring solar power via Petri Nets.
 * Knex
 * PostgreSQL
 * Moment
+
+## License
+Apache Version 2.0
